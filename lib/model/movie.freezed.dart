@@ -16,7 +16,7 @@ mixin _$Movie {
   String get title;
   int get year;
   double get rating;
-  @JsonKey(name: ' medium_cover_image')
+  @JsonKey(name: 'medium_cover_image')
   Uri get mediumCoverImage;
 
   Movie copyWith(
@@ -24,20 +24,19 @@ mixin _$Movie {
       String title,
       int year,
       double rating,
-      @JsonKey(name: ' medium_cover_image') Uri mediumCoverImage});
+      @JsonKey(name: 'medium_cover_image') Uri mediumCoverImage});
 
   Map<String, dynamic> toJson();
 }
 
 @JsonSerializable()
 class _$_Movie implements _Movie {
-  _$_Movie(this.id, this.title, this.year, this.rating,
-      @JsonKey(name: ' medium_cover_image') this.mediumCoverImage)
-      : assert(id != null),
-        assert(title != null),
-        assert(year != null),
-        assert(rating != null),
-        assert(mediumCoverImage != null);
+  _$_Movie(
+      {this.id,
+      this.title,
+      this.year,
+      this.rating,
+      @JsonKey(name: 'medium_cover_image') this.mediumCoverImage});
 
   factory _$_Movie.fromJson(Map<String, dynamic> json) =>
       _$_$_MovieFromJson(json);
@@ -51,7 +50,7 @@ class _$_Movie implements _Movie {
   @override
   final double rating;
   @override
-  @JsonKey(name: ' medium_cover_image')
+  @JsonKey(name: 'medium_cover_image')
   final Uri mediumCoverImage;
 
   @override
@@ -93,17 +92,12 @@ class _$_Movie implements _Movie {
     Object rating = freezed,
     Object mediumCoverImage = freezed,
   }) {
-    assert(id != null);
-    assert(title != null);
-    assert(year != null);
-    assert(rating != null);
-    assert(mediumCoverImage != null);
     return _$_Movie(
-      id == freezed ? this.id : id as int,
-      title == freezed ? this.title : title as String,
-      year == freezed ? this.year : year as int,
-      rating == freezed ? this.rating : rating as double,
-      mediumCoverImage == freezed
+      id: id == freezed ? this.id : id as int,
+      title: title == freezed ? this.title : title as String,
+      year: year == freezed ? this.year : year as int,
+      rating: rating == freezed ? this.rating : rating as double,
+      mediumCoverImage: mediumCoverImage == freezed
           ? this.mediumCoverImage
           : mediumCoverImage as Uri,
     );
@@ -116,8 +110,12 @@ class _$_Movie implements _Movie {
 }
 
 abstract class _Movie implements Movie {
-  factory _Movie(int id, String title, int year, double rating,
-      @JsonKey(name: ' medium_cover_image') Uri mediumCoverImage) = _$_Movie;
+  factory _Movie(
+      {int id,
+      String title,
+      int year,
+      double rating,
+      @JsonKey(name: 'medium_cover_image') Uri mediumCoverImage}) = _$_Movie;
 
   factory _Movie.fromJson(Map<String, dynamic> json) = _$_Movie.fromJson;
 
@@ -130,7 +128,7 @@ abstract class _Movie implements Movie {
   @override
   double get rating;
   @override
-  @JsonKey(name: ' medium_cover_image')
+  @JsonKey(name: 'medium_cover_image')
   Uri get mediumCoverImage;
 
   @override
@@ -139,5 +137,5 @@ abstract class _Movie implements Movie {
       String title,
       int year,
       double rating,
-      @JsonKey(name: ' medium_cover_image') Uri mediumCoverImage});
+      @JsonKey(name: 'medium_cover_image') Uri mediumCoverImage});
 }

@@ -10,6 +10,7 @@ abstract class Movie with _$Movie {
     String title,
     int year,
     double rating,
+    List<String> genres,
     @JsonKey(name: "medium_cover_image") Uri mediumCoverImage,
   }) = _Movie;
 

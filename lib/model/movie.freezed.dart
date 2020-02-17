@@ -16,6 +16,7 @@ mixin _$Movie {
   String get title;
   int get year;
   double get rating;
+  List<String> get genres;
   @JsonKey(name: 'medium_cover_image')
   Uri get mediumCoverImage;
 
@@ -24,6 +25,7 @@ mixin _$Movie {
       String title,
       int year,
       double rating,
+      List<String> genres,
       @JsonKey(name: 'medium_cover_image') Uri mediumCoverImage});
 
   Map<String, dynamic> toJson();
@@ -36,6 +38,7 @@ class _$_Movie implements _Movie {
       this.title,
       this.year,
       this.rating,
+      this.genres,
       @JsonKey(name: 'medium_cover_image') this.mediumCoverImage});
 
   factory _$_Movie.fromJson(Map<String, dynamic> json) =>
@@ -50,12 +53,14 @@ class _$_Movie implements _Movie {
   @override
   final double rating;
   @override
+  final List<String> genres;
+  @override
   @JsonKey(name: 'medium_cover_image')
   final Uri mediumCoverImage;
 
   @override
   String toString() {
-    return 'Movie(id: $id, title: $title, year: $year, rating: $rating, mediumCoverImage: $mediumCoverImage)';
+    return 'Movie(id: $id, title: $title, year: $year, rating: $rating, genres: $genres, mediumCoverImage: $mediumCoverImage)';
   }
 
   @override
@@ -70,6 +75,8 @@ class _$_Movie implements _Movie {
                 const DeepCollectionEquality().equals(other.year, year)) &&
             (identical(other.rating, rating) ||
                 const DeepCollectionEquality().equals(other.rating, rating)) &&
+            (identical(other.genres, genres) ||
+                const DeepCollectionEquality().equals(other.genres, genres)) &&
             (identical(other.mediumCoverImage, mediumCoverImage) ||
                 const DeepCollectionEquality()
                     .equals(other.mediumCoverImage, mediumCoverImage)));
@@ -82,6 +89,7 @@ class _$_Movie implements _Movie {
       title.hashCode ^
       year.hashCode ^
       rating.hashCode ^
+      genres.hashCode ^
       mediumCoverImage.hashCode;
 
   @override
@@ -90,6 +98,7 @@ class _$_Movie implements _Movie {
     Object title = freezed,
     Object year = freezed,
     Object rating = freezed,
+    Object genres = freezed,
     Object mediumCoverImage = freezed,
   }) {
     return _$_Movie(
@@ -97,6 +106,7 @@ class _$_Movie implements _Movie {
       title: title == freezed ? this.title : title as String,
       year: year == freezed ? this.year : year as int,
       rating: rating == freezed ? this.rating : rating as double,
+      genres: genres == freezed ? this.genres : genres as List<String>,
       mediumCoverImage: mediumCoverImage == freezed
           ? this.mediumCoverImage
           : mediumCoverImage as Uri,
@@ -115,6 +125,7 @@ abstract class _Movie implements Movie {
       String title,
       int year,
       double rating,
+      List<String> genres,
       @JsonKey(name: 'medium_cover_image') Uri mediumCoverImage}) = _$_Movie;
 
   factory _Movie.fromJson(Map<String, dynamic> json) = _$_Movie.fromJson;
@@ -128,6 +139,8 @@ abstract class _Movie implements Movie {
   @override
   double get rating;
   @override
+  List<String> get genres;
+  @override
   @JsonKey(name: 'medium_cover_image')
   Uri get mediumCoverImage;
 
@@ -137,5 +150,6 @@ abstract class _Movie implements Movie {
       String title,
       int year,
       double rating,
+      List<String> genres,
       @JsonKey(name: 'medium_cover_image') Uri mediumCoverImage});
 }

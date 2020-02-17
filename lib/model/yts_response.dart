@@ -10,7 +10,7 @@ abstract class YtsResponse<T extends YtsResponseData> with _$YtsResponse<T> {
     String status,
     @JsonKey(name: "status_message") String statusMessage,
     @_YtsDataConverter() T data,
-  ) = _YtsResponse;
+  ) = _YtsResponse<T>;
 
   factory YtsResponse.fromJson(Map<String, dynamic> json) =>
       _$YtsResponseFromJson(json);

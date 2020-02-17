@@ -12,28 +12,48 @@ MovieData _$MovieDataFromJson(Map<String, dynamic> json) {
 }
 
 mixin _$MovieData {
+  Movie get movie;
+
+  MovieData copyWith({Movie movie});
+
   Map<String, dynamic> toJson();
 }
 
 @JsonSerializable()
 class _$_MovieData implements _MovieData {
-  _$_MovieData();
+  _$_MovieData(this.movie) : assert(movie != null);
 
   factory _$_MovieData.fromJson(Map<String, dynamic> json) =>
       _$_$_MovieDataFromJson(json);
 
   @override
+  final Movie movie;
+
+  @override
   String toString() {
-    return 'MovieData()';
+    return 'MovieData(movie: $movie)';
   }
 
   @override
   bool operator ==(dynamic other) {
-    return identical(this, other) || (other is _MovieData);
+    return identical(this, other) ||
+        (other is _MovieData &&
+            (identical(other.movie, movie) ||
+                const DeepCollectionEquality().equals(other.movie, movie)));
   }
 
   @override
-  int get hashCode => runtimeType.hashCode;
+  int get hashCode => runtimeType.hashCode ^ movie.hashCode;
+
+  @override
+  _$_MovieData copyWith({
+    Object movie = freezed,
+  }) {
+    assert(movie != null);
+    return _$_MovieData(
+      movie == freezed ? this.movie : movie as Movie,
+    );
+  }
 
   @override
   Map<String, dynamic> toJson() {
@@ -42,10 +62,16 @@ class _$_MovieData implements _MovieData {
 }
 
 abstract class _MovieData implements MovieData {
-  factory _MovieData() = _$_MovieData;
+  factory _MovieData(Movie movie) = _$_MovieData;
 
   factory _MovieData.fromJson(Map<String, dynamic> json) =
       _$_MovieData.fromJson;
+
+  @override
+  Movie get movie;
+
+  @override
+  _MovieData copyWith({Movie movie});
 }
 
 MoviesData _$MoviesDataFromJson(Map<String, dynamic> json) {

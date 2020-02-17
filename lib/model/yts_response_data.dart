@@ -9,7 +9,9 @@ abstract class YtsResponseData {}
 
 @freezed
 abstract class MovieData extends YtsResponseData with _$MovieData {
-  factory MovieData() = _MovieData;
+  factory MovieData(
+    Movie movie,
+  ) = _MovieData;
 
   factory MovieData.fromJson(Map<String, dynamic> json) =>
       _$MovieDataFromJson(json);

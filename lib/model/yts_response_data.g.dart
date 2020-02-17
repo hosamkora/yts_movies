@@ -7,11 +7,17 @@ part of 'yts_response_data.dart';
 // **************************************************************************
 
 _$_MovieData _$_$_MovieDataFromJson(Map<String, dynamic> json) {
-  return _$_MovieData();
+  return _$_MovieData(
+    json['movie'] == null
+        ? null
+        : Movie.fromJson(json['movie'] as Map<String, dynamic>),
+  );
 }
 
 Map<String, dynamic> _$_$_MovieDataToJson(_$_MovieData instance) =>
-    <String, dynamic>{};
+    <String, dynamic>{
+      'movie': instance.movie,
+    };
 
 _$_MoviesData _$_$_MoviesDataFromJson(Map<String, dynamic> json) {
   return _$_MoviesData(

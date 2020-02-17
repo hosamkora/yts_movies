@@ -16,8 +16,8 @@ dev_dependencies:
   flutter_test:
     sdk: flutter
   build_runner: ^1.7.4
-  freezed: ^0.5.1
-  freezed_annotation: ^0.4.0
+  freezed: ^0.6.1
+  freezed_annotation: ^0.6.0
 
 flutter:
   uses-material-design: true

@@ -16,7 +16,7 @@ mixin _$Movie {
   String get title;
   int get year;
   double get rating;
-  List<Gener> get genres;
+  List<Genre> get genres;
   @JsonKey(name: 'medium_cover_image')
   Uri get mediumCoverImage;
   List<Torrent> get torrents;
@@ -26,7 +26,7 @@ mixin _$Movie {
       String title,
       int year,
       double rating,
-      List<Gener> genres,
+      List<Genre> genres,
       @JsonKey(name: 'medium_cover_image') Uri mediumCoverImage,
       List<Torrent> torrents});
 
@@ -56,7 +56,7 @@ class _$_Movie implements _Movie {
   @override
   final double rating;
   @override
-  final List<Gener> genres;
+  final List<Genre> genres;
   @override
   @JsonKey(name: 'medium_cover_image')
   final Uri mediumCoverImage;
@@ -116,7 +116,7 @@ class _$_Movie implements _Movie {
       title: title == freezed ? this.title : title as String,
       year: year == freezed ? this.year : year as int,
       rating: rating == freezed ? this.rating : rating as double,
-      genres: genres == freezed ? this.genres : genres as List<Gener>,
+      genres: genres == freezed ? this.genres : genres as List<Genre>,
       mediumCoverImage: mediumCoverImage == freezed
           ? this.mediumCoverImage
           : mediumCoverImage as Uri,
@@ -136,7 +136,7 @@ abstract class _Movie implements Movie {
       String title,
       int year,
       double rating,
-      List<Gener> genres,
+      List<Genre> genres,
       @JsonKey(name: 'medium_cover_image') Uri mediumCoverImage,
       List<Torrent> torrents}) = _$_Movie;
 
@@ -151,7 +151,7 @@ abstract class _Movie implements Movie {
   @override
   double get rating;
   @override
-  List<Gener> get genres;
+  List<Genre> get genres;
   @override
   @JsonKey(name: 'medium_cover_image')
   Uri get mediumCoverImage;
@@ -164,7 +164,7 @@ abstract class _Movie implements Movie {
       String title,
       int year,
       double rating,
-      List<Gener> genres,
+      List<Genre> genres,
       @JsonKey(name: 'medium_cover_image') Uri mediumCoverImage,
       List<Torrent> torrents});
 }

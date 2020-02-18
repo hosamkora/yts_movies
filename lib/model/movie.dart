@@ -11,7 +11,7 @@ abstract class Movie with _$Movie {
     String title,
     int year,
     double rating,
-    List<Gener> genres,
+    List<Genre> genres,
     @JsonKey(name: "medium_cover_image") Uri mediumCoverImage,
     List<Torrent> torrents,
   }) = _Movie;
@@ -19,7 +19,7 @@ abstract class Movie with _$Movie {
   factory Movie.fromJson(Map<String, dynamic> json) => _$MovieFromJson(json);
 }
 
-enum Gener {
+enum Genre {
   @JsonValue('Short')
   Short,
   @JsonValue('Drama')

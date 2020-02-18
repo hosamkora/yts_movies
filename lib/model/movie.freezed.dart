@@ -16,17 +16,19 @@ mixin _$Movie {
   String get title;
   int get year;
   double get rating;
-  List<String> get genres;
+  List<Gener> get genres;
   @JsonKey(name: 'medium_cover_image')
   Uri get mediumCoverImage;
+  List<Torrent> get torrents;
 
   Movie copyWith(
       {int id,
       String title,
       int year,
       double rating,
-      List<String> genres,
-      @JsonKey(name: 'medium_cover_image') Uri mediumCoverImage});
+      List<Gener> genres,
+      @JsonKey(name: 'medium_cover_image') Uri mediumCoverImage,
+      List<Torrent> torrents});
 
   Map<String, dynamic> toJson();
 }
@@ -39,7 +41,8 @@ class _$_Movie implements _Movie {
       this.year,
       this.rating,
       this.genres,
-      @JsonKey(name: 'medium_cover_image') this.mediumCoverImage});
+      @JsonKey(name: 'medium_cover_image') this.mediumCoverImage,
+      this.torrents});
 
   factory _$_Movie.fromJson(Map<String, dynamic> json) =>
       _$_$_MovieFromJson(json);
@@ -53,14 +56,16 @@ class _$_Movie implements _Movie {
   @override
   final double rating;
   @override
-  final List<String> genres;
+  final List<Gener> genres;
   @override
   @JsonKey(name: 'medium_cover_image')
   final Uri mediumCoverImage;
+  @override
+  final List<Torrent> torrents;
 
   @override
   String toString() {
-    return 'Movie(id: $id, title: $title, year: $year, rating: $rating, genres: $genres, mediumCoverImage: $mediumCoverImage)';
+    return 'Movie(id: $id, title: $title, year: $year, rating: $rating, genres: $genres, mediumCoverImage: $mediumCoverImage, torrents: $torrents)';
   }
 
   @override
@@ -79,7 +84,10 @@ class _$_Movie implements _Movie {
                 const DeepCollectionEquality().equals(other.genres, genres)) &&
             (identical(other.mediumCoverImage, mediumCoverImage) ||
                 const DeepCollectionEquality()
-                    .equals(other.mediumCoverImage, mediumCoverImage)));
+                    .equals(other.mediumCoverImage, mediumCoverImage)) &&
+            (identical(other.torrents, torrents) ||
+                const DeepCollectionEquality()
+                    .equals(other.torrents, torrents)));
   }
 
   @override
@@ -90,7 +98,8 @@ class _$_Movie implements _Movie {
       year.hashCode ^
       rating.hashCode ^
       genres.hashCode ^
-      mediumCoverImage.hashCode;
+      mediumCoverImage.hashCode ^
+      torrents.hashCode;
 
   @override
   _$_Movie copyWith({
@@ -100,16 +109,18 @@ class _$_Movie implements _Movie {
     Object rating = freezed,
     Object genres = freezed,
     Object mediumCoverImage = freezed,
+    Object torrents = freezed,
   }) {
     return _$_Movie(
       id: id == freezed ? this.id : id as int,
       title: title == freezed ? this.title : title as String,
       year: year == freezed ? this.year : year as int,
       rating: rating == freezed ? this.rating : rating as double,
-      genres: genres == freezed ? this.genres : genres as List<String>,
+      genres: genres == freezed ? this.genres : genres as List<Gener>,
       mediumCoverImage: mediumCoverImage == freezed
           ? this.mediumCoverImage
           : mediumCoverImage as Uri,
+      torrents: torrents == freezed ? this.torrents : torrents as List<Torrent>,
     );
   }
 
@@ -125,8 +136,9 @@ abstract class _Movie implements Movie {
       String title,
       int year,
       double rating,
-      List<String> genres,
-      @JsonKey(name: 'medium_cover_image') Uri mediumCoverImage}) = _$_Movie;
+      List<Gener> genres,
+      @JsonKey(name: 'medium_cover_image') Uri mediumCoverImage,
+      List<Torrent> torrents}) = _$_Movie;
 
   factory _Movie.fromJson(Map<String, dynamic> json) = _$_Movie.fromJson;
 
@@ -139,10 +151,12 @@ abstract class _Movie implements Movie {
   @override
   double get rating;
   @override
-  List<String> get genres;
+  List<Gener> get genres;
   @override
   @JsonKey(name: 'medium_cover_image')
   Uri get mediumCoverImage;
+  @override
+  List<Torrent> get torrents;
 
   @override
   _Movie copyWith(
@@ -150,6 +164,7 @@ abstract class _Movie implements Movie {
       String title,
       int year,
       double rating,
-      List<String> genres,
-      @JsonKey(name: 'medium_cover_image') Uri mediumCoverImage});
+      List<Gener> genres,
+      @JsonKey(name: 'medium_cover_image') Uri mediumCoverImage,
+      List<Torrent> torrents});
 }

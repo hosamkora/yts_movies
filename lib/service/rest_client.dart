@@ -16,7 +16,7 @@ class RestClient {
       compact: true,
       request: true,
       error: true,
-      responseBody: false,
+      responseBody: true,
     );
     if (loggingState == true) {
       dio.interceptors.add(logger);

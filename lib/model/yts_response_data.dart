@@ -24,7 +24,7 @@ abstract class MoviesData extends YtsResponseData
     @JsonKey(name: "movie_count") int movieCount,
     int limit,
     @JsonKey(name: "page_number") int pageNumber,
-    List<Movie> movies,
+    @nullable List<Movie> movies,
   ) = _MoviesData;
 
   factory MoviesData.fromJson(Map<String, dynamic> json) =>

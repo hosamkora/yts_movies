@@ -84,13 +84,14 @@ mixin _$MoviesData {
   int get limit;
   @JsonKey(name: 'page_number')
   int get pageNumber;
+  @nullable
   List<Movie> get movies;
 
   MoviesData copyWith(
       {@JsonKey(name: 'movie_count') int movieCount,
       int limit,
       @JsonKey(name: 'page_number') int pageNumber,
-      List<Movie> movies});
+      @nullable List<Movie> movies});
 
   Map<String, dynamic> toJson();
 }
@@ -98,11 +99,10 @@ mixin _$MoviesData {
 @JsonSerializable()
 class _$_MoviesData implements _MoviesData {
   _$_MoviesData(@JsonKey(name: 'movie_count') this.movieCount, this.limit,
-      @JsonKey(name: 'page_number') this.pageNumber, this.movies)
+      @JsonKey(name: 'page_number') this.pageNumber, @nullable this.movies)
       : assert(movieCount != null),
         assert(limit != null),
-        assert(pageNumber != null),
-        assert(movies != null);
+        assert(pageNumber != null);
 
   factory _$_MoviesData.fromJson(Map<String, dynamic> json) =>
       _$_$_MoviesDataFromJson(json);
@@ -116,6 +116,7 @@ class _$_MoviesData implements _MoviesData {
   @JsonKey(name: 'page_number')
   final int pageNumber;
   @override
+  @nullable
   final List<Movie> movies;
 
   @override
@@ -157,7 +158,6 @@ class _$_MoviesData implements _MoviesData {
     assert(movieCount != null);
     assert(limit != null);
     assert(pageNumber != null);
-    assert(movies != null);
     return _$_MoviesData(
       movieCount == freezed ? this.movieCount : movieCount as int,
       limit == freezed ? this.limit : limit as int,
@@ -177,7 +177,7 @@ abstract class _MoviesData implements MoviesData {
       @JsonKey(name: 'movie_count') int movieCount,
       int limit,
       @JsonKey(name: 'page_number') int pageNumber,
-      List<Movie> movies) = _$_MoviesData;
+      @nullable List<Movie> movies) = _$_MoviesData;
 
   factory _MoviesData.fromJson(Map<String, dynamic> json) =
       _$_MoviesData.fromJson;
@@ -191,6 +191,7 @@ abstract class _MoviesData implements MoviesData {
   @JsonKey(name: 'page_number')
   int get pageNumber;
   @override
+  @nullable
   List<Movie> get movies;
 
   @override
@@ -198,5 +199,5 @@ abstract class _MoviesData implements MoviesData {
       {@JsonKey(name: 'movie_count') int movieCount,
       int limit,
       @JsonKey(name: 'page_number') int pageNumber,
-      List<Movie> movies});
+      @nullable List<Movie> movies});
 }

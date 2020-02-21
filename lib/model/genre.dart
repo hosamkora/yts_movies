@@ -63,10 +63,15 @@ enum Genre {
   Experimental,
   @JsonValue('Commercial')
   Commercial,
+  None,
 }
 
 extension GenreValue on Genre {
   String get value => _genreMapping[this];
+  static Genre fromValue(String value) => _genreMapping.keys.firstWhere(
+        (key) => _genreMapping[key] == value,
+        orElse: () => Genre.None,
+      );
 }
 
 const _genreMapping = {

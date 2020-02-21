@@ -9,10 +9,16 @@ enum Quality {
   UHD,
   @JsonValue('3D')
   $3D,
+  None,
 }
 
 extension QualityValue on Quality {
   String get value => _qualityMapping[this];
+
+  static Quality fromValue(String value) => _qualityMapping.keys.firstWhere(
+        (key) => _qualityMapping[key] == value,
+        orElse: () => Quality.None,
+      );
 }
 
 const _qualityMapping = {

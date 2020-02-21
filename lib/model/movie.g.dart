@@ -99,4 +99,5 @@ const _$GenreEnumMap = {
   Genre.Lifestyle: 'Lifestyle',
   Genre.Experimental: 'Experimental',
   Genre.Commercial: 'Commercial',
+  Genre.None: 'None',
 };

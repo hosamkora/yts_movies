@@ -54,4 +54,5 @@ const _$QualityEnumMap = {
   Quality.FHD: '1080p',
   Quality.UHD: '4k',
   Quality.$3D: '3D',
+  Quality.None: 'None',
 };

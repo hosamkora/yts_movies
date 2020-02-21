@@ -8,6 +8,7 @@ import 'package:dio/dio.dart';
 import 'package:yts_movies/service/rest_client.dart';
 import 'package:dio/src/dio.dart';
 import 'package:yts_movies/api/yts_api.dart';
+import 'package:yts_movies/repository/movies_repository.dart';
 import 'package:get_it/get_it.dart';
 
 void $initGetIt(GetIt g, {String environment}) {
@@ -22,5 +23,8 @@ void _registerEagerSingletons(GetIt g, String environment) {
   ));
   g.registerSingleton<YtsApi>(YtsApi(
     g<RestClient>(),
+  ));
+  g.registerSingleton<MoviesRepository>(MoviesRepository(
+    g<YtsApi>(),
   ));
 }

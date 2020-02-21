@@ -1,12 +1,9 @@
 import 'package:dio/dio.dart';
 import 'package:injectable/injectable.dart';
 import 'package:retrofit/retrofit.dart';
-import 'package:yts_movies/main.dart';
-import 'package:yts_movies/model/torrent.dart';
 import 'package:yts_movies/model/yts_response.dart';
 import 'package:yts_movies/model/yts_response_data.dart';
 import 'package:yts_movies/service/rest_client.dart';
-import 'package:yts_movies/model/movie.dart';
 
 part 'yts_api.g.dart';
 

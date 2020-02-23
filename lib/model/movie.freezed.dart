@@ -1,5 +1,5 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
-// ignore_for_file: deprecated_member_use_from_same_package
+// ignore_for_file: deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters
 
 part of 'movie.dart';
 
@@ -93,13 +93,13 @@ class _$_Movie implements _Movie {
   @override
   int get hashCode =>
       runtimeType.hashCode ^
-      id.hashCode ^
-      title.hashCode ^
-      year.hashCode ^
-      rating.hashCode ^
-      genres.hashCode ^
-      mediumCoverImage.hashCode ^
-      torrents.hashCode;
+      const DeepCollectionEquality().hash(id) ^
+      const DeepCollectionEquality().hash(title) ^
+      const DeepCollectionEquality().hash(year) ^
+      const DeepCollectionEquality().hash(rating) ^
+      const DeepCollectionEquality().hash(genres) ^
+      const DeepCollectionEquality().hash(mediumCoverImage) ^
+      const DeepCollectionEquality().hash(torrents);
 
   @override
   _$_Movie copyWith({

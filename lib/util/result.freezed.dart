@@ -1,5 +1,5 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
-// ignore_for_file: deprecated_member_use_from_same_package
+// ignore_for_file: deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters
 
 part of 'result.dart';
 
@@ -55,13 +55,13 @@ class _$_Error<T> implements _Error<T> {
   }
 
   @override
-  int get hashCode => runtimeType.hashCode ^ message.hashCode;
+  int get hashCode =>
+      runtimeType.hashCode ^ const DeepCollectionEquality().hash(message);
 
   @override
   _$_Error<T> copyWith({
     Object message = freezed,
   }) {
-    assert(message != null);
     return _$_Error<T>(
       message == freezed ? this.message : message as String,
     );
@@ -146,13 +146,13 @@ class _$_Payload<T> implements _Payload<T> {
   }
 
   @override
-  int get hashCode => runtimeType.hashCode ^ payload.hashCode;
+  int get hashCode =>
+      runtimeType.hashCode ^ const DeepCollectionEquality().hash(payload);
 
   @override
   _$_Payload<T> copyWith({
     Object payload = freezed,
   }) {
-    assert(payload != null);
     return _$_Payload<T>(
       payload == freezed ? this.payload : payload as T,
     );

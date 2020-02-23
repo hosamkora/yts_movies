@@ -1,5 +1,5 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
-// ignore_for_file: deprecated_member_use_from_same_package
+// ignore_for_file: deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters
 
 part of 'yts_response.dart';
 
@@ -70,9 +70,9 @@ class _$_YtsResponse<T extends YtsResponseData> implements _YtsResponse<T> {
   @override
   int get hashCode =>
       runtimeType.hashCode ^
-      status.hashCode ^
-      statusMessage.hashCode ^
-      data.hashCode;
+      const DeepCollectionEquality().hash(status) ^
+      const DeepCollectionEquality().hash(statusMessage) ^
+      const DeepCollectionEquality().hash(data);
 
   @override
   _$_YtsResponse<T> copyWith({
@@ -80,9 +80,6 @@ class _$_YtsResponse<T extends YtsResponseData> implements _YtsResponse<T> {
     Object statusMessage = freezed,
     Object data = freezed,
   }) {
-    assert(status != null);
-    assert(statusMessage != null);
-    assert(data != null);
     return _$_YtsResponse<T>(
       status == freezed ? this.status : status as String,
       statusMessage == freezed ? this.statusMessage : statusMessage as String,

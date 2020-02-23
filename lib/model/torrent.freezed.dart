@@ -1,5 +1,5 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
-// ignore_for_file: deprecated_member_use_from_same_package
+// ignore_for_file: deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters
 
 part of 'torrent.dart';
 
@@ -43,13 +43,13 @@ class _$_Torrent implements _Torrent {
   }
 
   @override
-  int get hashCode => runtimeType.hashCode ^ quality.hashCode;
+  int get hashCode =>
+      runtimeType.hashCode ^ const DeepCollectionEquality().hash(quality);
 
   @override
   _$_Torrent copyWith({
     Object quality = freezed,
   }) {
-    assert(quality != null);
     return _$_Torrent(
       quality == freezed ? this.quality : quality as Quality,
     );

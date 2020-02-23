@@ -1,5 +1,5 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
-// ignore_for_file: deprecated_member_use_from_same_package
+// ignore_for_file: deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters
 
 part of 'yts_response_data.dart';
 
@@ -43,13 +43,13 @@ class _$_MovieData implements _MovieData {
   }
 
   @override
-  int get hashCode => runtimeType.hashCode ^ movie.hashCode;
+  int get hashCode =>
+      runtimeType.hashCode ^ const DeepCollectionEquality().hash(movie);
 
   @override
   _$_MovieData copyWith({
     Object movie = freezed,
   }) {
-    assert(movie != null);
     return _$_MovieData(
       movie == freezed ? this.movie : movie as Movie,
     );
@@ -143,10 +143,10 @@ class _$_MoviesData implements _MoviesData {
   @override
   int get hashCode =>
       runtimeType.hashCode ^
-      movieCount.hashCode ^
-      limit.hashCode ^
-      pageNumber.hashCode ^
-      movies.hashCode;
+      const DeepCollectionEquality().hash(movieCount) ^
+      const DeepCollectionEquality().hash(limit) ^
+      const DeepCollectionEquality().hash(pageNumber) ^
+      const DeepCollectionEquality().hash(movies);
 
   @override
   _$_MoviesData copyWith({
@@ -155,9 +155,6 @@ class _$_MoviesData implements _MoviesData {
     Object pageNumber = freezed,
     Object movies = freezed,
   }) {
-    assert(movieCount != null);
-    assert(limit != null);
-    assert(pageNumber != null);
     return _$_MoviesData(
       movieCount == freezed ? this.movieCount : movieCount as int,
       limit == freezed ? this.limit : limit as int,

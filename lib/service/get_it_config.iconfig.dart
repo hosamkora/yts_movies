@@ -5,19 +5,18 @@
 // **************************************************************************
 
 import 'package:dio/dio.dart';
+import 'package:yts_movies/service/register_modules.dart';
 import 'package:yts_movies/service/rest_client.dart';
-import 'package:dio/src/dio.dart';
 import 'package:yts_movies/api/yts_api.dart';
 import 'package:yts_movies/repository/movies_repository.dart';
+import 'package:yts_movies/view_models/movies_store.dart';
 import 'package:get_it/get_it.dart';
 
 void $initGetIt(GetIt g, {String environment}) {
-  _registerEagerSingletons(g, environment);
-}
+  final registerModule = _$RegisterModule();
 
-// Eager singletons must be registered in the right order
-void _registerEagerSingletons(GetIt g, String environment) {
-  g.registerSingleton<Dio>(Dio());
+  //Eager singletons must be registered in the right order
+  g.registerSingleton<Dio>(registerModule.dio);
   g.registerSingleton<RestClient>(RestClient(
     g<Dio>(),
   ));
@@ -27,4 +26,9 @@ void _registerEagerSingletons(GetIt g, String environment) {
   g.registerSingleton<MoviesRepository>(MoviesRepository(
     g<YtsApi>(),
   ));
+  g.registerSingleton<MoviesStore>(MoviesStore(
+    g<MoviesRepository>(),
+  ));
 }
+
+class _$RegisterModule extends RegisterModule {}

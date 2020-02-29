@@ -1,5 +1,5 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
-// ignore_for_file: deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters
+// ignore_for_file: deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named
 
 part of 'result.dart';
 
@@ -34,6 +34,24 @@ mixin _$Result<T> {
     @required Result orElse(),
   });
 }
+
+class _$ResultTearOff {
+  const _$ResultTearOff();
+
+  _Error<T> error<T>(String message) {
+    return _Error<T>(
+      message,
+    );
+  }
+
+  _Payload<T> payload<T>(T payload) {
+    return _Payload<T>(
+      payload,
+    );
+  }
+}
+
+const $Result = _$ResultTearOff();
 
 class _$_Error<T> implements _Error<T> {
   _$_Error(this.message) : assert(message != null);

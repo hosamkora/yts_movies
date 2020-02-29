@@ -1,5 +1,5 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
-// ignore_for_file: deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters
+// ignore_for_file: deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named
 
 part of 'yts_response_data.dart';
 
@@ -18,6 +18,18 @@ mixin _$MovieData {
 
   Map<String, dynamic> toJson();
 }
+
+class _$MovieDataTearOff {
+  const _$MovieDataTearOff();
+
+  _MovieData call(Movie movie) {
+    return _MovieData(
+      movie,
+    );
+  }
+}
+
+const $MovieData = _$MovieDataTearOff();
 
 @JsonSerializable()
 class _$_MovieData implements _MovieData {
@@ -95,6 +107,25 @@ mixin _$MoviesData {
 
   Map<String, dynamic> toJson();
 }
+
+class _$MoviesDataTearOff {
+  const _$MoviesDataTearOff();
+
+  _MoviesData call(
+      @JsonKey(name: 'movie_count') int movieCount,
+      int limit,
+      @JsonKey(name: 'page_number') int pageNumber,
+      @nullable List<Movie> movies) {
+    return _MoviesData(
+      movieCount,
+      limit,
+      pageNumber,
+      movies,
+    );
+  }
+}
+
+const $MoviesData = _$MoviesDataTearOff();
 
 @JsonSerializable()
 class _$_MoviesData implements _MoviesData {

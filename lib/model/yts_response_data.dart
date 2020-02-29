@@ -18,8 +18,7 @@ abstract class MovieData extends YtsResponseData with _$MovieData {
 }
 
 @freezed
-abstract class MoviesData extends YtsResponseData
-    with _$MoviesData, YtsResponseData {
+abstract class MoviesData extends YtsResponseData with _$MoviesData {
   factory MoviesData(
     @JsonKey(name: "movie_count") int movieCount,
     int limit,

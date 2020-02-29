@@ -1,5 +1,5 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
-// ignore_for_file: deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters
+// ignore_for_file: deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named
 
 part of 'movie.dart';
 
@@ -32,6 +32,31 @@ mixin _$Movie {
 
   Map<String, dynamic> toJson();
 }
+
+class _$MovieTearOff {
+  const _$MovieTearOff();
+
+  _Movie call(
+      {int id,
+      String title,
+      int year,
+      double rating,
+      List<Genre> genres,
+      @JsonKey(name: 'medium_cover_image') Uri mediumCoverImage,
+      List<Torrent> torrents}) {
+    return _Movie(
+      id: id,
+      title: title,
+      year: year,
+      rating: rating,
+      genres: genres,
+      mediumCoverImage: mediumCoverImage,
+      torrents: torrents,
+    );
+  }
+}
+
+const $Movie = _$MovieTearOff();
 
 @JsonSerializable()
 class _$_Movie implements _Movie {

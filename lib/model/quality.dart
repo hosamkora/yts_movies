@@ -5,6 +5,8 @@ enum Quality {
   HD,
   @JsonValue('1080p')
   FHD,
+  @JsonValue('2160p')
+  $2K,
   @JsonValue('4k')
   UHD,
   @JsonValue('3D')
@@ -24,6 +26,7 @@ extension QualityValue on Quality {
 const _qualityMapping = {
   Quality.HD: '720p',
   Quality.FHD: '1080p',
+  Quality.$2K: '2160p',
   Quality.UHD: '4k',
   Quality.$3D: '3D',
 };

@@ -30,3 +30,26 @@ const _qualityMapping = {
   Quality.UHD: '4k',
   Quality.$3D: '3D',
 };
+
+enum QualityType {
+  @JsonValue('web')
+  Web,
+  @JsonValue('bluray')
+  Blueray,
+  None,
+}
+
+extension QualityTypeValue on QualityType {
+  String get value => _qualityTypeMapping[this];
+
+  static QualityType fromValue(String value) =>
+      _qualityTypeMapping.keys.firstWhere(
+        (key) => _qualityTypeMapping[key] == value,
+        orElse: () => QualityType.None,
+      );
+}
+
+const _qualityTypeMapping = {
+  QualityType.Web: "web",
+  QualityType.Blueray: "bluray",
+};

@@ -9,12 +9,14 @@ part of 'torrent.dart';
 _$_Torrent _$_$_TorrentFromJson(Map<String, dynamic> json) {
   return _$_Torrent(
     _$enumDecodeNullable(_$QualityEnumMap, json['quality']),
+    _$enumDecodeNullable(_$QualityTypeEnumMap, json['type']),
   );
 }
 
 Map<String, dynamic> _$_$_TorrentToJson(_$_Torrent instance) =>
     <String, dynamic>{
       'quality': _$QualityEnumMap[instance.quality],
+      'type': _$QualityTypeEnumMap[instance.type],
     };
 
 T _$enumDecode<T>(
@@ -56,4 +58,10 @@ const _$QualityEnumMap = {
   Quality.UHD: '4k',
   Quality.$3D: '3D',
   Quality.None: 'None',
+};
+
+const _$QualityTypeEnumMap = {
+  QualityType.Web: 'web',
+  QualityType.Blueray: 'bluray',
+  QualityType.None: 'None',
 };

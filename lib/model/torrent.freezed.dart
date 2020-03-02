@@ -13,8 +13,9 @@ Torrent _$TorrentFromJson(Map<String, dynamic> json) {
 
 mixin _$Torrent {
   Quality get quality;
+  QualityType get type;
 
-  Torrent copyWith({Quality quality});
+  Torrent copyWith({Quality quality, QualityType type});
 
   Map<String, dynamic> toJson();
 }
@@ -22,9 +23,10 @@ mixin _$Torrent {
 class _$TorrentTearOff {
   const _$TorrentTearOff();
 
-  _Torrent call(Quality quality) {
+  _Torrent call(Quality quality, QualityType type) {
     return _Torrent(
       quality,
+      type,
     );
   }
 }
@@ -33,17 +35,21 @@ const $Torrent = _$TorrentTearOff();
 
 @JsonSerializable()
 class _$_Torrent implements _Torrent {
-  _$_Torrent(this.quality) : assert(quality != null);
+  _$_Torrent(this.quality, this.type)
+      : assert(quality != null),
+        assert(type != null);
 
   factory _$_Torrent.fromJson(Map<String, dynamic> json) =>
       _$_$_TorrentFromJson(json);
 
   @override
   final Quality quality;
+  @override
+  final QualityType type;
 
   @override
   String toString() {
-    return 'Torrent(quality: $quality)';
+    return 'Torrent(quality: $quality, type: $type)';
   }
 
   @override
@@ -51,19 +57,26 @@ class _$_Torrent implements _Torrent {
     return identical(this, other) ||
         (other is _Torrent &&
             (identical(other.quality, quality) ||
-                const DeepCollectionEquality().equals(other.quality, quality)));
+                const DeepCollectionEquality()
+                    .equals(other.quality, quality)) &&
+            (identical(other.type, type) ||
+                const DeepCollectionEquality().equals(other.type, type)));
   }
 
   @override
   int get hashCode =>
-      runtimeType.hashCode ^ const DeepCollectionEquality().hash(quality);
+      runtimeType.hashCode ^
+      const DeepCollectionEquality().hash(quality) ^
+      const DeepCollectionEquality().hash(type);
 
   @override
   _$_Torrent copyWith({
     Object quality = freezed,
+    Object type = freezed,
   }) {
     return _$_Torrent(
       quality == freezed ? this.quality : quality as Quality,
+      type == freezed ? this.type : type as QualityType,
     );
   }
 
@@ -74,13 +87,15 @@ class _$_Torrent implements _Torrent {
 }
 
 abstract class _Torrent implements Torrent {
-  factory _Torrent(Quality quality) = _$_Torrent;
+  factory _Torrent(Quality quality, QualityType type) = _$_Torrent;
 
   factory _Torrent.fromJson(Map<String, dynamic> json) = _$_Torrent.fromJson;
 
   @override
   Quality get quality;
+  @override
+  QualityType get type;
 
   @override
-  _Torrent copyWith({Quality quality});
+  _Torrent copyWith({Quality quality, QualityType type});
 }

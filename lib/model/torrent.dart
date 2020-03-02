@@ -6,7 +6,10 @@ part 'torrent.g.dart';
 
 @freezed
 abstract class Torrent with _$Torrent {
-  factory Torrent(Quality quality) = _Torrent;
+  factory Torrent(
+    Quality quality,
+    QualityType type,
+  ) = _Torrent;
 
   factory Torrent.fromJson(Map<String, dynamic> json) =>
       _$TorrentFromJson(json);

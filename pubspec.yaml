@@ -23,6 +23,7 @@ dependencies:
   smooth_star_rating: ^1.0.4+2
   freezed_annotation: ^0.7.1
   transparent_image: ^1.0.0
+  provider: ^4.0.4
 
 dev_dependencies:
   flutter_test:

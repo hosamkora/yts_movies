@@ -19,10 +19,11 @@ abstract class MovieData extends YtsResponseData with _$MovieData {
 
 @freezed
 abstract class MoviesData extends YtsResponseData with _$MoviesData {
+  @JsonSerializable(fieldRename: FieldRename.snake)
   factory MoviesData(
-    @JsonKey(name: "movie_count") int movieCount,
+    int movieCount,
     int limit,
-    @JsonKey(name: "page_number") int pageNumber,
+    int pageNumber,
     @nullable List<Movie> movies,
   ) = _MoviesData;
 

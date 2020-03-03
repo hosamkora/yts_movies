@@ -7,13 +7,14 @@ part 'movie.g.dart';
 
 @freezed
 abstract class Movie with _$Movie {
+  @JsonSerializable(fieldRename: FieldRename.snake)
   factory Movie({
     int id,
     String title,
     int year,
     double rating,
     List<Genre> genres,
-    @JsonKey(name: "medium_cover_image") Uri mediumCoverImage,
+    Uri mediumCoverImage,
     List<Torrent> torrents,
   }) = _Movie;
 

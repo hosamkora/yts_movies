@@ -14,15 +14,12 @@ YtsResponse<T> _$YtsResponseFromJson<T extends YtsResponseData>(
 
 mixin _$YtsResponse<T extends YtsResponseData> {
   String get status;
-  @JsonKey(name: 'status_message')
   String get statusMessage;
   @_YtsDataConverter()
   T get data;
 
   YtsResponse<T> copyWith(
-      {String status,
-      @JsonKey(name: 'status_message') String statusMessage,
-      @_YtsDataConverter() T data});
+      {String status, String statusMessage, @_YtsDataConverter() T data});
 
   Map<String, dynamic> toJson();
 }
@@ -31,9 +28,7 @@ class _$YtsResponseTearOff {
   const _$YtsResponseTearOff();
 
   _YtsResponse<T> call<T extends YtsResponseData>(
-      String status,
-      @JsonKey(name: 'status_message') String statusMessage,
-      @_YtsDataConverter() T data) {
+      String status, String statusMessage, @_YtsDataConverter() T data) {
     return _YtsResponse<T>(
       status,
       statusMessage,
@@ -44,12 +39,10 @@ class _$YtsResponseTearOff {
 
 const $YtsResponse = _$YtsResponseTearOff();
 
-@JsonSerializable()
+@JsonSerializable(fieldRename: FieldRename.snake)
 class _$_YtsResponse<T extends YtsResponseData> implements _YtsResponse<T> {
   _$_YtsResponse(
-      this.status,
-      @JsonKey(name: 'status_message') this.statusMessage,
-      @_YtsDataConverter() this.data)
+      this.status, this.statusMessage, @_YtsDataConverter() this.data)
       : assert(status != null),
         assert(statusMessage != null),
         assert(data != null);
@@ -60,7 +53,6 @@ class _$_YtsResponse<T extends YtsResponseData> implements _YtsResponse<T> {
   @override
   final String status;
   @override
-  @JsonKey(name: 'status_message')
   final String statusMessage;
   @override
   @_YtsDataConverter()
@@ -113,9 +105,8 @@ class _$_YtsResponse<T extends YtsResponseData> implements _YtsResponse<T> {
 abstract class _YtsResponse<T extends YtsResponseData>
     implements YtsResponse<T> {
   factory _YtsResponse(
-      String status,
-      @JsonKey(name: 'status_message') String statusMessage,
-      @_YtsDataConverter() T data) = _$_YtsResponse<T>;
+          String status, String statusMessage, @_YtsDataConverter() T data) =
+      _$_YtsResponse<T>;
 
   factory _YtsResponse.fromJson(Map<String, dynamic> json) =
       _$_YtsResponse<T>.fromJson;
@@ -123,7 +114,6 @@ abstract class _YtsResponse<T extends YtsResponseData>
   @override
   String get status;
   @override
-  @JsonKey(name: 'status_message')
   String get statusMessage;
   @override
   @_YtsDataConverter()
@@ -131,7 +121,5 @@ abstract class _YtsResponse<T extends YtsResponseData>
 
   @override
   _YtsResponse<T> copyWith(
-      {String status,
-      @JsonKey(name: 'status_message') String statusMessage,
-      @_YtsDataConverter() T data});
+      {String status, String statusMessage, @_YtsDataConverter() T data});
 }

@@ -6,9 +6,10 @@ part 'yts_response.g.dart';
 
 @freezed
 abstract class YtsResponse<T extends YtsResponseData> with _$YtsResponse<T> {
+  @JsonSerializable(fieldRename: FieldRename.snake)
   factory YtsResponse(
     String status,
-    @JsonKey(name: "status_message") String statusMessage,
+    String statusMessage,
     @_YtsDataConverter() T data,
   ) = _YtsResponse<T>;
 

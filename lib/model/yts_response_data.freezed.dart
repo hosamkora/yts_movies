@@ -91,18 +91,16 @@ MoviesData _$MoviesDataFromJson(Map<String, dynamic> json) {
 }
 
 mixin _$MoviesData {
-  @JsonKey(name: 'movie_count')
   int get movieCount;
   int get limit;
-  @JsonKey(name: 'page_number')
   int get pageNumber;
   @nullable
   List<Movie> get movies;
 
   MoviesData copyWith(
-      {@JsonKey(name: 'movie_count') int movieCount,
+      {int movieCount,
       int limit,
-      @JsonKey(name: 'page_number') int pageNumber,
+      int pageNumber,
       @nullable List<Movie> movies});
 
   Map<String, dynamic> toJson();
@@ -112,10 +110,7 @@ class _$MoviesDataTearOff {
   const _$MoviesDataTearOff();
 
   _MoviesData call(
-      @JsonKey(name: 'movie_count') int movieCount,
-      int limit,
-      @JsonKey(name: 'page_number') int pageNumber,
-      @nullable List<Movie> movies) {
+      int movieCount, int limit, int pageNumber, @nullable List<Movie> movies) {
     return _MoviesData(
       movieCount,
       limit,
@@ -127,10 +122,10 @@ class _$MoviesDataTearOff {
 
 const $MoviesData = _$MoviesDataTearOff();
 
-@JsonSerializable()
+@JsonSerializable(fieldRename: FieldRename.snake)
 class _$_MoviesData implements _MoviesData {
-  _$_MoviesData(@JsonKey(name: 'movie_count') this.movieCount, this.limit,
-      @JsonKey(name: 'page_number') this.pageNumber, @nullable this.movies)
+  _$_MoviesData(
+      this.movieCount, this.limit, this.pageNumber, @nullable this.movies)
       : assert(movieCount != null),
         assert(limit != null),
         assert(pageNumber != null);
@@ -139,12 +134,10 @@ class _$_MoviesData implements _MoviesData {
       _$_$_MoviesDataFromJson(json);
 
   @override
-  @JsonKey(name: 'movie_count')
   final int movieCount;
   @override
   final int limit;
   @override
-  @JsonKey(name: 'page_number')
   final int pageNumber;
   @override
   @nullable
@@ -201,22 +194,17 @@ class _$_MoviesData implements _MoviesData {
 }
 
 abstract class _MoviesData implements MoviesData {
-  factory _MoviesData(
-      @JsonKey(name: 'movie_count') int movieCount,
-      int limit,
-      @JsonKey(name: 'page_number') int pageNumber,
+  factory _MoviesData(int movieCount, int limit, int pageNumber,
       @nullable List<Movie> movies) = _$_MoviesData;
 
   factory _MoviesData.fromJson(Map<String, dynamic> json) =
       _$_MoviesData.fromJson;
 
   @override
-  @JsonKey(name: 'movie_count')
   int get movieCount;
   @override
   int get limit;
   @override
-  @JsonKey(name: 'page_number')
   int get pageNumber;
   @override
   @nullable
@@ -224,8 +212,8 @@ abstract class _MoviesData implements MoviesData {
 
   @override
   _MoviesData copyWith(
-      {@JsonKey(name: 'movie_count') int movieCount,
+      {int movieCount,
       int limit,
-      @JsonKey(name: 'page_number') int pageNumber,
+      int pageNumber,
       @nullable List<Movie> movies});
 }

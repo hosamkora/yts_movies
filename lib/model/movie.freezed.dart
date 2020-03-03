@@ -17,7 +17,6 @@ mixin _$Movie {
   int get year;
   double get rating;
   List<Genre> get genres;
-  @JsonKey(name: 'medium_cover_image')
   Uri get mediumCoverImage;
   List<Torrent> get torrents;
 
@@ -27,7 +26,7 @@ mixin _$Movie {
       int year,
       double rating,
       List<Genre> genres,
-      @JsonKey(name: 'medium_cover_image') Uri mediumCoverImage,
+      Uri mediumCoverImage,
       List<Torrent> torrents});
 
   Map<String, dynamic> toJson();
@@ -42,7 +41,7 @@ class _$MovieTearOff {
       int year,
       double rating,
       List<Genre> genres,
-      @JsonKey(name: 'medium_cover_image') Uri mediumCoverImage,
+      Uri mediumCoverImage,
       List<Torrent> torrents}) {
     return _Movie(
       id: id,
@@ -58,7 +57,7 @@ class _$MovieTearOff {
 
 const $Movie = _$MovieTearOff();
 
-@JsonSerializable()
+@JsonSerializable(fieldRename: FieldRename.snake)
 class _$_Movie implements _Movie {
   _$_Movie(
       {this.id,
@@ -66,7 +65,7 @@ class _$_Movie implements _Movie {
       this.year,
       this.rating,
       this.genres,
-      @JsonKey(name: 'medium_cover_image') this.mediumCoverImage,
+      this.mediumCoverImage,
       this.torrents});
 
   factory _$_Movie.fromJson(Map<String, dynamic> json) =>
@@ -83,7 +82,6 @@ class _$_Movie implements _Movie {
   @override
   final List<Genre> genres;
   @override
-  @JsonKey(name: 'medium_cover_image')
   final Uri mediumCoverImage;
   @override
   final List<Torrent> torrents;
@@ -162,7 +160,7 @@ abstract class _Movie implements Movie {
       int year,
       double rating,
       List<Genre> genres,
-      @JsonKey(name: 'medium_cover_image') Uri mediumCoverImage,
+      Uri mediumCoverImage,
       List<Torrent> torrents}) = _$_Movie;
 
   factory _Movie.fromJson(Map<String, dynamic> json) = _$_Movie.fromJson;
@@ -178,7 +176,6 @@ abstract class _Movie implements Movie {
   @override
   List<Genre> get genres;
   @override
-  @JsonKey(name: 'medium_cover_image')
   Uri get mediumCoverImage;
   @override
   List<Torrent> get torrents;
@@ -190,6 +187,6 @@ abstract class _Movie implements Movie {
       int year,
       double rating,
       List<Genre> genres,
-      @JsonKey(name: 'medium_cover_image') Uri mediumCoverImage,
+      Uri mediumCoverImage,
       List<Torrent> torrents});
 }

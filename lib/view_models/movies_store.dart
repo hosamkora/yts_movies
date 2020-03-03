@@ -40,6 +40,10 @@ abstract class _MoviesStoreBase with Store {
       },
     );
   }
+
+  void dispose() {
+    //TODO: release resources
+  }
 }
 
 @freezed

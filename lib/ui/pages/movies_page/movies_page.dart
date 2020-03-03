@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
+import 'package:provider/provider.dart';
 import 'package:yts_movies/model/movie.dart';
 import 'package:yts_movies/model/quality.dart';
 import 'package:yts_movies/repository/movies_repository.dart';
@@ -20,9 +21,15 @@ class MoviesPage extends StatefulWidget {
 }
 
 class _MoviesPageState extends State<MoviesPage> {
-  final model = getIt.get<MoviesStore>();
+  MoviesStore model;
   ScrollController controller = ScrollController();
   final isBottomEdge = false.listenable;
+
+  @override
+  void didChangeDependencies() {
+    model ??= Provider.of<MoviesStore>(context);
+    super.didChangeDependencies();
+  }
 
   @override
   Widget build(BuildContext context) {

@@ -1,6 +1,8 @@
 import 'package:injectable/injectable.dart';
 import 'package:yts_movies/api/yts_api.dart';
+import 'package:yts_movies/model/genre.dart';
 import 'package:yts_movies/model/movie.dart';
+import 'package:yts_movies/model/quality.dart';
 import 'package:yts_movies/util/result.dart';
 
 @singleton
@@ -23,9 +25,9 @@ class MoviesRepository {
     String queryTerm,
     int limit,
     int page,
-    String quality,
+    Quality quality,
     int minimumRating,
-    String genre,
+    Genre genre,
     String sortBy,
     String orderBy,
     bool withRottenTomatoesratings,
@@ -36,9 +38,9 @@ class MoviesRepository {
         queryTerm: queryTerm,
         limit: limit,
         page: page,
-        quality: quality,
+        quality: quality?.value,
         minimumRating: minimumRating,
-        genre: genre,
+        genre: genre?.value,
         sortBy: sortBy,
         orderBy: orderBy,
         withRottenTomatoesratings: withRottenTomatoesratings,

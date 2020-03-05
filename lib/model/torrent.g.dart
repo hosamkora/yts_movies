@@ -54,8 +54,7 @@ T _$enumDecodeNullable<T>(
 const _$QualityEnumMap = {
   Quality.HD: '720p',
   Quality.FHD: '1080p',
-  Quality.$2K: '2160p',
-  Quality.UHD: '4k',
+  Quality.$4K: '2160p',
   Quality.$3D: '3D',
   Quality.None: 'None',
 };

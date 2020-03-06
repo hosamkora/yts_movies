@@ -17,18 +17,10 @@ void $initGetIt(GetIt g, {String environment}) {
 
   //Eager singletons must be registered in the right order
   g.registerSingleton<Dio>(registerModule.dio);
-  g.registerSingleton<RestClient>(RestClient(
-    g<Dio>(),
-  ));
-  g.registerSingleton<YtsApi>(YtsApi(
-    g<RestClient>(),
-  ));
-  g.registerSingleton<MoviesRepository>(MoviesRepository(
-    g<YtsApi>(),
-  ));
-  g.registerSingleton<MoviesStore>(MoviesStore(
-    g<MoviesRepository>(),
-  ));
+  g.registerSingleton<RestClient>(RestClient(g<Dio>()));
+  g.registerSingleton<YtsApi>(YtsApi(g<RestClient>()));
+  g.registerSingleton<MoviesRepository>(MoviesRepository(g<YtsApi>()));
+  g.registerSingleton<MoviesStore>(MoviesStore(g<MoviesRepository>()));
 }
 
 class _$RegisterModule extends RegisterModule {}

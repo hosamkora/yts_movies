@@ -10,6 +10,7 @@ import 'package:yts_movies/util/result.dart';
 import 'package:yts_movies/view_models/movies_store.dart';
 import 'package:yts_movies/util/object_extensions.dart';
 import 'package:yts_movies/util/size_extensions.dart';
+import 'package:yts_movies/util/scrollable_extensions.dart';
 
 class MoviesPage extends StatefulWidget {
   MoviesPage({Key key, this.title}) : super(key: key);
@@ -22,12 +23,18 @@ class MoviesPage extends StatefulWidget {
 
 class _MoviesPageState extends State<MoviesPage> {
   MoviesStore model;
-  ScrollController controller = ScrollController();
+  ScrollController controller;
   final isBottomEdge = false.listenable;
 
   @override
+  void initState() {
+    controller = ScrollController();
+    super.initState();
+  }
+
+  @override
   void didChangeDependencies() {
-    model ??= Provider.of<MoviesStore>(context);
+    model ??= Provider.of<MoviesStore>(context, listen: false);
     super.didChangeDependencies();
   }
 
@@ -48,8 +55,8 @@ class _MoviesPageState extends State<MoviesPage> {
         body: FutureBuilder<Result<List<Movie>>>(
           future: getIt.get<MoviesRepository>().getMovies(
                 limit: 50,
-                sortBy: 'year',
-                quality: Quality.UHD,
+                queryTerm: 'Knives Out',
+                quality: Quality.$4K,
               ),
           builder: (_, snapshot) {
             print(snapshot.data);
@@ -60,15 +67,14 @@ class _MoviesPageState extends State<MoviesPage> {
                       child: Text(error),
                     ),
                     payload: (movies) =>
-                        NotificationListener<ScrollUpdateNotification>(
+                        NotificationListener<ScrollNotification>(
                       onNotification: (notification) {
-                        if (controller.hasClients &&
-                            controller.position.atEdge &&
-                            controller.position.userScrollDirection ==
-                                ScrollDirection.reverse)
+                        if (notification.isBottomEdge)
                           isBottomEdge.value = true;
                         else
                           isBottomEdge.value = false;
+
+                        return true;
                       },
                       child: Column(
                         children: <Widget>[
@@ -84,7 +90,7 @@ class _MoviesPageState extends State<MoviesPage> {
                                       ),
                                     )
                                     .toList(),
-                                ValueListenableBuilder<bool>(
+                                ValueListenableBuilder(
                                     valueListenable: isBottomEdge,
                                     builder: (_, value, __) => value
                                         ? Center(
@@ -102,17 +108,17 @@ class _MoviesPageState extends State<MoviesPage> {
       ),
     );
   }
-}
-
-class BorderdContainer extends StatelessWidget {
-  final child;
-  const BorderdContainer({Key key, this.child}) : super(key: key);
 
   @override
-  Widget build(BuildContext context) {
-    return Container(
-      child: child,
-      decoration: BoxDecoration(border: Border.all(color: Colors.cyan)),
-    );
+  void dispose() {
+    controller.dispose();
+    super.dispose();
   }
+}
+
+extension BorderContainer on Widget {
+  Widget get borderd => Container(
+        child: this,
+        decoration: BoxDecoration(border: Border.all(color: Colors.cyan)),
+      );
 }

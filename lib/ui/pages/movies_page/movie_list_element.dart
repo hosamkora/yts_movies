@@ -7,7 +7,7 @@ import 'package:yts_movies/model/genre.dart';
 
 class MovieListElement extends StatelessWidget {
   final Movie movie;
-  const MovieListElement(this.movie, {key}) : super(key: key);
+  const MovieListElement(this.movie, {Key key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -67,10 +67,8 @@ class MovieListElement extends StatelessWidget {
                             ))
                         .toList(),
                   ),
-                  Text(
-                    movie.genres.map((genre) => genre.value).join(' , '),
-                    style: TextStyle(fontSize: 40.sp),
-                  ),
+                  Text(movie.genres.map((genre) => genre.value).join(' , '),
+                      style: TextStyle(fontSize: 40.sp)),
                 ],
               ),
             ),

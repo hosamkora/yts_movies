@@ -1,5 +1,6 @@
 import 'package:injectable/injectable.dart';
 import 'package:mobx/mobx.dart';
+import 'package:yts_movies/mixin/reactions_mixin.dart';
 import 'package:yts_movies/model/movie.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:yts_movies/repository/movies_repository.dart';
@@ -10,7 +11,7 @@ part 'movies_store.freezed.dart';
 @singleton
 class MoviesStore = _MoviesStoreBase with _$MoviesStore;
 
-abstract class _MoviesStoreBase with Store {
+abstract class _MoviesStoreBase with Store, Reactions {
   final MoviesRepository _moviesRepository;
 
   // cached movies data movies
@@ -41,8 +42,9 @@ abstract class _MoviesStoreBase with Store {
     );
   }
 
+  @override
   void dispose() {
-    //TODO: release resources
+    super.dispose();
   }
 }
 

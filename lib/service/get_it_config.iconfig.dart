@@ -14,9 +14,9 @@ import 'package:get_it/get_it.dart';
 
 void $initGetIt(GetIt g, {String environment}) {
   final registerModule = _$RegisterModule();
+  g.registerFactory<Dio>(() => registerModule.getDio());
 
   //Eager singletons must be registered in the right order
-  g.registerSingleton<Dio>(registerModule.dio);
   g.registerSingleton<RestClient>(RestClient(g<Dio>()));
   g.registerSingleton<YtsApi>(YtsApi(g<RestClient>()));
   g.registerSingleton<MoviesRepository>(MoviesRepository(g<YtsApi>()));

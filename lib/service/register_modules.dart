@@ -3,6 +3,5 @@ import 'package:injectable/injectable.dart';
 
 @registerModule
 abstract class RegisterModule {
-  @singleton
-  Dio get dio => Dio();
+  Dio getDio() => Dio();
 }

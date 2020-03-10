@@ -6,6 +6,7 @@ import 'package:yts_movies/ui/pages/movies_page/movie_list_element.dart';
 import 'package:yts_movies/view_models/movies_store.dart';
 import 'package:yts_movies/util/size_extensions.dart';
 import 'package:yts_movies/util/scrollable_extensions.dart';
+import 'package:yts_movies/util/object_extensions.dart';
 
 class MoviesPage extends StatefulWidget {
   MoviesPage({Key key, this.title}) : super(key: key);
@@ -19,10 +20,11 @@ class MoviesPage extends StatefulWidget {
 class _MoviesPageState extends State<MoviesPage> {
   MoviesStore model;
   ScrollController controller;
-
+  final isTop = false.listenable;
   @override
   void initState() {
     controller = ScrollController();
+
     super.initState();
   }
 
@@ -37,26 +39,45 @@ class _MoviesPageState extends State<MoviesPage> {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
-          appBar: PreferredSize(
-            preferredSize: Size(double.infinity, 150.h),
-            child: AppBar(
-              centerTitle: true,
-              title: Text(
-                widget.title,
-                style: TextStyle(fontSize: 55.sp),
-              ),
+        appBar: PreferredSize(
+          preferredSize: Size(double.infinity, 150.h),
+          child: AppBar(
+            centerTitle: true,
+            title: Text(
+              widget.title,
+              style: TextStyle(fontSize: 55.sp),
             ),
           ),
-          body: Observer(
-            builder: (_) {
-              return model.moviesState.when<Widget>(
-                initial: loading,
-                loading: model.loadingMore ? loaded : loading,
-                loaded: loaded,
-                error: error,
-              );
-            },
-          )),
+        ),
+        body: Observer(
+          builder: (_) {
+            return model.moviesState.when<Widget>(
+              initial: loading,
+              loading: model.loadingMore ? loaded : loading,
+              loaded: loaded,
+              error: error,
+            );
+          },
+        ),
+        floatingActionButton: ValueListenableBuilder<bool>(
+          valueListenable: isTop,
+          builder: (_, value, child) => AnimatedOpacity(
+            opacity: value ? 0 : 1,
+            duration: Duration(milliseconds: 100),
+            child: FloatingActionButton(
+              onPressed: () {
+                controller.animateTo(
+                  0,
+                  duration: Duration(milliseconds: 500),
+                  curve: Curves.bounceInOut,
+                );
+              },
+              child: Icon(Icons.vertical_align_top),
+            ),
+          ),
+          // child: Icon(Icons.vertical_align_top),
+        ),
+      ),
     );
   }
 
@@ -65,6 +86,8 @@ class _MoviesPageState extends State<MoviesPage> {
   Widget loaded() => NotificationListener<ScrollNotification>(
         onNotification: (notification) {
           if (notification.isBottomEdge) model.loadMore();
+          isTop.value = notification.isTopEdge;
+          print(isTop.value);
           return true;
         },
         child: Column(
@@ -76,6 +99,7 @@ class _MoviesPageState extends State<MoviesPage> {
                   ...model.movies
                       .map(
                         (movie) => InkWell(
+                          key: Key("${movie.id} ${movie.year}"),
                           onTap: () {},
                           child: MovieListElement(movie),
                         ),

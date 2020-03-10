@@ -1,14 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
+import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:provider/provider.dart';
-import 'package:yts_movies/model/movie.dart';
-import 'package:yts_movies/model/quality.dart';
-import 'package:yts_movies/repository/movies_repository.dart';
-import 'package:yts_movies/service/get_it_config.dart';
 import 'package:yts_movies/ui/pages/movies_page/movie_list_element.dart';
-import 'package:yts_movies/util/result.dart';
 import 'package:yts_movies/view_models/movies_store.dart';
-import 'package:yts_movies/util/object_extensions.dart';
 import 'package:yts_movies/util/size_extensions.dart';
 import 'package:yts_movies/util/scrollable_extensions.dart';
 
@@ -24,7 +19,6 @@ class MoviesPage extends StatefulWidget {
 class _MoviesPageState extends State<MoviesPage> {
   MoviesStore model;
   ScrollController controller;
-  final isBottomEdge = false.listenable;
 
   @override
   void initState() {
@@ -35,6 +29,7 @@ class _MoviesPageState extends State<MoviesPage> {
   @override
   void didChangeDependencies() {
     model ??= Provider.of<MoviesStore>(context, listen: false);
+    model.loadInitalMovies();
     super.didChangeDependencies();
   }
 
@@ -42,72 +37,60 @@ class _MoviesPageState extends State<MoviesPage> {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
-        appBar: PreferredSize(
-          preferredSize: Size(double.infinity, 150.h),
-          child: AppBar(
-            centerTitle: true,
-            title: Text(
-              widget.title,
-              style: TextStyle(fontSize: 55.sp),
+          appBar: PreferredSize(
+            preferredSize: Size(double.infinity, 150.h),
+            child: AppBar(
+              centerTitle: true,
+              title: Text(
+                widget.title,
+                style: TextStyle(fontSize: 55.sp),
+              ),
             ),
           ),
-        ),
-        body: FutureBuilder<Result<List<Movie>>>(
-          future: getIt.get<MoviesRepository>().getMovies(
-                limit: 50,
-                queryTerm: 'Knives Out',
-                quality: Quality.$4K,
-              ),
-          builder: (_, snapshot) {
-            print(snapshot.data);
-            return snapshot.data == null
-                ? Center(child: CircularProgressIndicator())
-                : snapshot.data.when<Widget>(
-                    error: (error) => Center(
-                      child: Text(error),
-                    ),
-                    payload: (movies) =>
-                        NotificationListener<ScrollNotification>(
-                      onNotification: (notification) {
-                        if (notification.isBottomEdge)
-                          isBottomEdge.value = true;
-                        else
-                          isBottomEdge.value = false;
-
-                        return true;
-                      },
-                      child: Column(
-                        children: <Widget>[
-                          Expanded(
-                            child: ListView(
-                              controller: controller,
-                              children: [
-                                ...movies
-                                    .map(
-                                      (movie) => InkWell(
-                                        onTap: () {},
-                                        child: MovieListElement(movie),
-                                      ),
-                                    )
-                                    .toList(),
-                                ValueListenableBuilder(
-                                    valueListenable: isBottomEdge,
-                                    builder: (_, value, __) => value
-                                        ? Center(
-                                            child: CircularProgressIndicator())
-                                        : SizedBox.shrink())
-                              ],
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                  );
-          },
-        ),
-      ),
+          body: Observer(
+            builder: (_) {
+              return model.moviesState.when<Widget>(
+                initial: loading,
+                loading: model.loadingMore ? loaded : loading,
+                loaded: loaded,
+                error: error,
+              );
+            },
+          )),
     );
   }
+
+  Widget error(String errorMessage) => Center(child: Text(errorMessage));
+  Widget loading() => Center(child: CircularProgressIndicator());
+  Widget loaded() => NotificationListener<ScrollNotification>(
+        onNotification: (notification) {
+          if (notification.isBottomEdge) model.loadMore();
+          return true;
+        },
+        child: Column(
+          children: <Widget>[
+            Expanded(
+              child: ListView(
+                controller: controller,
+                children: [
+                  ...model.movies
+                      .map(
+                        (movie) => InkWell(
+                          onTap: () {},
+                          child: MovieListElement(movie),
+                        ),
+                      )
+                      .toList(),
+                  Observer(
+                      builder: (_) => model.loadingMore
+                          ? Center(child: CircularProgressIndicator())
+                          : SizedBox.shrink())
+                ],
+              ),
+            ),
+          ],
+        ),
+      );
 
   @override
   void dispose() {

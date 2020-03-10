@@ -10,17 +10,17 @@ part of 'state_union.dart';
 mixin _$StateUnion<T> {
   @optionalTypeArgs
   Result when<Result extends Object>({
-    @required Result initial(T initialState),
+    @required Result initial(),
     @required Result loading(),
-    @required Result loaded(T payload),
+    @required Result loaded(),
     @required Result error(String message),
   });
 
   @optionalTypeArgs
   Result maybeWhen<Result extends Object>({
-    Result initial(T initialState),
+    Result initial(),
     Result loading(),
-    Result loaded(T payload),
+    Result loaded(),
     Result error(String message),
     @required Result orElse(),
   });
@@ -46,20 +46,16 @@ mixin _$StateUnion<T> {
 class _$StateUnionTearOff {
   const _$StateUnionTearOff();
 
-  Initial<T> initial<T>(T initialState) {
-    return Initial<T>(
-      initialState,
-    );
+  Initial<T> initial<T>() {
+    return Initial<T>();
   }
 
   Loading<T> loading<T>() {
     return Loading<T>();
   }
 
-  Loaded<T> loaded<T>(T payload) {
-    return Loaded<T>(
-      payload,
-    );
+  Loaded<T> loaded<T>() {
+    return Loaded<T>();
   }
 
   Error<T> error<T>(String message) {
@@ -72,65 +68,48 @@ class _$StateUnionTearOff {
 const $StateUnion = _$StateUnionTearOff();
 
 class _$Initial<T> implements Initial<T> {
-  _$Initial(this.initialState) : assert(initialState != null);
-
-  @override
-  final T initialState;
+  _$Initial();
 
   @override
   String toString() {
-    return 'StateUnion<$T>.initial(initialState: $initialState)';
+    return 'StateUnion<$T>.initial()';
   }
 
   @override
   bool operator ==(dynamic other) {
-    return identical(this, other) ||
-        (other is Initial<T> &&
-            (identical(other.initialState, initialState) ||
-                const DeepCollectionEquality()
-                    .equals(other.initialState, initialState)));
+    return identical(this, other) || (other is Initial<T>);
   }
 
   @override
-  int get hashCode =>
-      runtimeType.hashCode ^ const DeepCollectionEquality().hash(initialState);
-
-  @override
-  _$Initial<T> copyWith({
-    Object initialState = freezed,
-  }) {
-    return _$Initial<T>(
-      initialState == freezed ? this.initialState : initialState as T,
-    );
-  }
+  int get hashCode => runtimeType.hashCode;
 
   @override
   @optionalTypeArgs
   Result when<Result extends Object>({
-    @required Result initial(T initialState),
+    @required Result initial(),
     @required Result loading(),
-    @required Result loaded(T payload),
+    @required Result loaded(),
     @required Result error(String message),
   }) {
     assert(initial != null);
     assert(loading != null);
     assert(loaded != null);
     assert(error != null);
-    return initial(initialState);
+    return initial();
   }
 
   @override
   @optionalTypeArgs
   Result maybeWhen<Result extends Object>({
-    Result initial(T initialState),
+    Result initial(),
     Result loading(),
-    Result loaded(T payload),
+    Result loaded(),
     Result error(String message),
     @required Result orElse(),
   }) {
     assert(orElse != null);
     if (initial != null) {
-      return initial(initialState);
+      return initial();
     }
     return orElse();
   }
@@ -168,11 +147,7 @@ class _$Initial<T> implements Initial<T> {
 }
 
 abstract class Initial<T> implements StateUnion<T> {
-  factory Initial(T initialState) = _$Initial<T>;
-
-  T get initialState;
-
-  Initial<T> copyWith({T initialState});
+  factory Initial() = _$Initial<T>;
 }
 
 class _$Loading<T> implements Loading<T> {
@@ -194,9 +169,9 @@ class _$Loading<T> implements Loading<T> {
   @override
   @optionalTypeArgs
   Result when<Result extends Object>({
-    @required Result initial(T initialState),
+    @required Result initial(),
     @required Result loading(),
-    @required Result loaded(T payload),
+    @required Result loaded(),
     @required Result error(String message),
   }) {
     assert(initial != null);
@@ -209,9 +184,9 @@ class _$Loading<T> implements Loading<T> {
   @override
   @optionalTypeArgs
   Result maybeWhen<Result extends Object>({
-    Result initial(T initialState),
+    Result initial(),
     Result loading(),
-    Result loaded(T payload),
+    Result loaded(),
     Result error(String message),
     @required Result orElse(),
   }) {
@@ -259,64 +234,48 @@ abstract class Loading<T> implements StateUnion<T> {
 }
 
 class _$Loaded<T> implements Loaded<T> {
-  _$Loaded(this.payload) : assert(payload != null);
-
-  @override
-  final T payload;
+  _$Loaded();
 
   @override
   String toString() {
-    return 'StateUnion<$T>.loaded(payload: $payload)';
+    return 'StateUnion<$T>.loaded()';
   }
 
   @override
   bool operator ==(dynamic other) {
-    return identical(this, other) ||
-        (other is Loaded<T> &&
-            (identical(other.payload, payload) ||
-                const DeepCollectionEquality().equals(other.payload, payload)));
+    return identical(this, other) || (other is Loaded<T>);
   }
 
   @override
-  int get hashCode =>
-      runtimeType.hashCode ^ const DeepCollectionEquality().hash(payload);
-
-  @override
-  _$Loaded<T> copyWith({
-    Object payload = freezed,
-  }) {
-    return _$Loaded<T>(
-      payload == freezed ? this.payload : payload as T,
-    );
-  }
+  int get hashCode => runtimeType.hashCode;
 
   @override
   @optionalTypeArgs
   Result when<Result extends Object>({
-    @required Result initial(T initialState),
+    @required Result initial(),
     @required Result loading(),
-    @required Result loaded(T payload),
+    @required Result loaded(),
     @required Result error(String message),
   }) {
     assert(initial != null);
     assert(loading != null);
     assert(loaded != null);
     assert(error != null);
-    return loaded(payload);
+    return loaded();
   }
 
   @override
   @optionalTypeArgs
   Result maybeWhen<Result extends Object>({
-    Result initial(T initialState),
+    Result initial(),
     Result loading(),
-    Result loaded(T payload),
+    Result loaded(),
     Result error(String message),
     @required Result orElse(),
   }) {
     assert(orElse != null);
     if (loaded != null) {
-      return loaded(payload);
+      return loaded();
     }
     return orElse();
   }
@@ -354,11 +313,7 @@ class _$Loaded<T> implements Loaded<T> {
 }
 
 abstract class Loaded<T> implements StateUnion<T> {
-  factory Loaded(T payload) = _$Loaded<T>;
-
-  T get payload;
-
-  Loaded<T> copyWith({T payload});
+  factory Loaded() = _$Loaded<T>;
 }
 
 class _$Error<T> implements Error<T> {
@@ -396,9 +351,9 @@ class _$Error<T> implements Error<T> {
   @override
   @optionalTypeArgs
   Result when<Result extends Object>({
-    @required Result initial(T initialState),
+    @required Result initial(),
     @required Result loading(),
-    @required Result loaded(T payload),
+    @required Result loaded(),
     @required Result error(String message),
   }) {
     assert(initial != null);
@@ -411,9 +366,9 @@ class _$Error<T> implements Error<T> {
   @override
   @optionalTypeArgs
   Result maybeWhen<Result extends Object>({
-    Result initial(T initialState),
+    Result initial(),
     Result loading(),
-    Result loaded(T payload),
+    Result loaded(),
     Result error(String message),
     @required Result orElse(),
   }) {

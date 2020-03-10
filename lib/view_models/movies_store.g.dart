@@ -9,6 +9,23 @@ part of 'movies_store.dart';
 // ignore_for_file: non_constant_identifier_names, unnecessary_lambdas, prefer_expression_function_bodies, lines_longer_than_80_chars, avoid_as, avoid_annotating_with_dynamic
 
 mixin _$MoviesStore on _MoviesStoreBase, Store {
+  final _$loadingMoreAtom = Atom(name: '_MoviesStoreBase.loadingMore');
+
+  @override
+  bool get loadingMore {
+    _$loadingMoreAtom.context.enforceReadPolicy(_$loadingMoreAtom);
+    _$loadingMoreAtom.reportObserved();
+    return super.loadingMore;
+  }
+
+  @override
+  set loadingMore(bool value) {
+    _$loadingMoreAtom.context.conditionallyRunInAction(() {
+      super.loadingMore = value;
+      _$loadingMoreAtom.reportChanged();
+    }, _$loadingMoreAtom, name: '${_$loadingMoreAtom.name}_set');
+  }
+
   final _$moviesStateAtom = Atom(name: '_MoviesStoreBase.moviesState');
 
   @override
@@ -35,7 +52,8 @@ mixin _$MoviesStore on _MoviesStoreBase, Store {
 
   @override
   String toString() {
-    final string = 'moviesState: ${moviesState.toString()}';
+    final string =
+        'loadingMore: ${loadingMore.toString()},moviesState: ${moviesState.toString()}';
     return '{$string}';
   }
 }

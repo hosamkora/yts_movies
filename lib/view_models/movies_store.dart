@@ -13,32 +13,48 @@ class MoviesStore = _MoviesStoreBase with _$MoviesStore;
 abstract class _MoviesStoreBase with Store, Reactions {
   final MoviesRepository _moviesRepository;
 
-  // cached movies data movies
-  List<Movie> _movies;
+  List<Movie> movies;
+
+  int lasPage = -1;
+
+  @observable
+  bool loadingMore = false;
 
   @observable
   StateUnion<List<Movie>> moviesState;
 
   _MoviesStoreBase(this._moviesRepository) {
-    _movies = [];
-    moviesState = StateUnion.initial(_movies);
+    movies = [];
+    moviesState = StateUnion.initial();
   }
   @action
   Future<void> loadInitalMovies() async {
     if (moviesState is Loading) return;
     moviesState = StateUnion.loading();
-    final result = await _moviesRepository.getMovies(
-      limit: 1,
-      minimumRating: 4,
-    );
+    final result = await _moviesRepository.getMovies(minimumRating: 8);
     result.when(
       error: (errorMessage) => {moviesState = StateUnion.error(errorMessage)},
-      payload: (movies) {
-        _movies = movies;
-        return moviesState =
-            StateUnion.loaded(List<Movie>.unmodifiable(movies));
+      payload: (moviesPayload) {
+        movies.clear();
+        movies.addAll(moviesPayload);
+        moviesState = StateUnion.loaded();
       },
     );
+  }
+
+  Future<void> loadMore() async {
+    if (moviesState is Loading) return;
+    loadingMore = true;
+    moviesState = StateUnion.loading();
+    final result = await _moviesRepository.getMovies(minimumRating: 8);
+    result.when(
+      error: (errorMessage) => {moviesState = StateUnion.error(errorMessage)},
+      payload: (moviesPayload) {
+        movies.addAll(moviesPayload);
+        moviesState = StateUnion.loaded();
+      },
+    );
+    loadingMore = false;
   }
 
   @override

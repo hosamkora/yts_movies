@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:smooth_star_rating/smooth_star_rating.dart';
 import 'package:yts_movies/model/movie.dart';
@@ -7,17 +8,36 @@ import 'package:yts_movies/model/genre.dart';
 
 class MovieListElement extends StatelessWidget {
   final Movie movie;
+
   const MovieListElement(this.movie, {Key key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    final imageHight = 400.h;
+    final imageAspectRatio = 230 / 345;
+
     return Card(
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
-          Image.network(
-            movie.mediumCoverImage.toString(),
-            height: 400.w,
+          CachedNetworkImage(
+            imageUrl: movie.mediumCoverImage.toString(),
+            height: imageHight,
+            fadeInDuration: const Duration(milliseconds: 500),
+            placeholder: (_, __) => SizedBox(
+              height: imageHight,
+              child: AspectRatio(
+                aspectRatio: imageAspectRatio,
+                child: Container(
+                  color: Colors.grey.withOpacity(.3),
+                  child: Icon(
+                    Icons.movie,
+                    color: Colors.cyan,
+                    size: 100.sp,
+                  ),
+                ),
+              ),
+            ),
           ),
           SizedBox(width: 20.w),
           Expanded(

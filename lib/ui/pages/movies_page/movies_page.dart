@@ -20,7 +20,7 @@ class MoviesPage extends StatefulWidget {
 class _MoviesPageState extends State<MoviesPage> {
   MoviesStore model;
   ScrollController controller;
-  final isTop = false.listenable;
+  final isTop = true.listenable;
   @override
   void initState() {
     controller = ScrollController();

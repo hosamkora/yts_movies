@@ -2,11 +2,10 @@ import 'package:injectable/injectable.dart';
 import 'package:mobx/mobx.dart';
 import 'package:yts_movies/mixin/reactions_mixin.dart';
 import 'package:yts_movies/model/movie.dart';
-import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:yts_movies/repository/movies_repository.dart';
+import 'package:yts_movies/view_models/state_union.dart';
 
 part 'movies_store.g.dart';
-part 'movies_store.freezed.dart';
 
 @singleton
 class MoviesStore = _MoviesStoreBase with _$MoviesStore;
@@ -46,12 +45,4 @@ abstract class _MoviesStoreBase with Store, Reactions {
   void dispose() {
     super.dispose();
   }
-}
-
-@freezed
-abstract class StateUnion<T> with _$StateUnion<T> {
-  factory StateUnion.initial(T initialState) = Initial<T>;
-  factory StateUnion.loading() = Loading<T>;
-  factory StateUnion.loaded(T payload) = Loaded<T>;
-  factory StateUnion.error(String message) = Error<T>;
 }

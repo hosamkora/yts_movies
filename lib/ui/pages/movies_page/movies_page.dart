@@ -52,8 +52,8 @@ class _MoviesPageState extends State<MoviesPage> {
         body: Observer(
           builder: (_) {
             return model.moviesState.when<Widget>(
-              initial: loading,
-              loading: model.loadingMore ? loaded : loading,
+              initial: loaded,
+              loading: model.isLoadingMore ? loaded : loading,
               loaded: loaded,
               error: error,
             );
@@ -85,9 +85,8 @@ class _MoviesPageState extends State<MoviesPage> {
   Widget loading() => Center(child: CircularProgressIndicator());
   Widget loaded() => NotificationListener<ScrollNotification>(
         onNotification: (notification) {
-          if (notification.isBottomEdge) model.loadMore();
+          if (notification.isBottomEdge) model.loadMoreMovies();
           isTop.value = notification.isTopEdge;
-          print(isTop.value);
           return true;
         },
         child: Column(
@@ -106,7 +105,7 @@ class _MoviesPageState extends State<MoviesPage> {
                       )
                       .toList(),
                   Observer(
-                      builder: (_) => model.loadingMore
+                      builder: (_) => model.isLoadingMore
                           ? Center(child: CircularProgressIndicator())
                           : SizedBox.shrink())
                 ],

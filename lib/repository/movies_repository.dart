@@ -14,7 +14,7 @@ class MoviesRepository {
   Future<Result<Movie>> getMovie(int movieId) async {
     try {
       final response = await _api.getMovie(movieId);
-      return Result.payload(response.data.movie);
+      return Result.sucess(response.data.movie);
     } on Exception catch (err) {
       return Result.error(" 🛑🛑🛑🛑🛑🛑 Error 🛑🛑🛑🛑🛑🛑");
       // TODO specfic exception handleing
@@ -45,7 +45,7 @@ class MoviesRepository {
         orderBy: orderBy,
         withRottenTomatoesratings: withRottenTomatoesratings,
       );
-      return Result.payload(response.data.movies);
+      return Result.sucess(response.data.movies);
     } on Exception catch (err) {
       return Result.error(" 🛑🛑🛑🛑🛑🛑 Error 🛑🛑🛑🛑🛑🛑");
       // TODO: specfic exception handleing

@@ -3,6 +3,7 @@ import 'package:mobx/mobx.dart';
 import 'package:yts_movies/mixin/reactions_mixin.dart';
 import 'package:yts_movies/model/movie.dart';
 import 'package:yts_movies/repository/movies_repository.dart';
+import 'package:yts_movies/util/result.dart';
 import 'package:yts_movies/view_models/state_union.dart';
 
 part 'movies_store.g.dart';
@@ -15,10 +16,10 @@ abstract class _MoviesStoreBase with Store, Reactions {
 
   List<Movie> movies;
 
-  int lasPage = -1;
+  int lastPage = 1;
 
   @observable
-  bool loadingMore = false;
+  bool isLoadingMore = false;
 
   @observable
   StateUnion<List<Movie>> moviesState;
@@ -27,35 +28,48 @@ abstract class _MoviesStoreBase with Store, Reactions {
     movies = [];
     moviesState = StateUnion.initial();
   }
+
   @action
   Future<void> loadInitalMovies() async {
-    if (moviesState is Loading) return;
-    moviesState = StateUnion.loading();
-    final result = await _moviesRepository.getMovies(minimumRating: 8);
-    result.when(
-      error: (errorMessage) => {moviesState = StateUnion.error(errorMessage)},
-      payload: (moviesPayload) {
-        movies.clear();
-        movies.addAll(moviesPayload);
-        moviesState = StateUnion.loaded();
-      },
-    );
+    if (_isLoading) return;
+    _loadMovies();
   }
 
-  Future<void> loadMore() async {
-    if (moviesState is Loading) return;
-    loadingMore = true;
-    moviesState = StateUnion.loading();
-    final result = await _moviesRepository.getMovies(minimumRating: 8);
-    result.when(
-      error: (errorMessage) => {moviesState = StateUnion.error(errorMessage)},
-      payload: (moviesPayload) {
-        movies.addAll(moviesPayload);
-        moviesState = StateUnion.loaded();
-      },
-    );
-    loadingMore = false;
+  @action
+  Future<void> loadMoreMovies() async {
+    if (_isLoading) return;
+    isLoadingMore = true;
+    await _loadMovies();
+    isLoadingMore = false;
   }
+
+  @action
+  Future<void> _loadMovies() async {
+    _setState(StateUnion.loading());
+    final moviesResult = await _loadMoviesResult();
+    _setStateUsing(moviesResult);
+  }
+
+  bool get _isLoading => moviesState is Loading;
+
+  Future<Result<List<Movie>>> _loadMoviesResult() async =>
+      await _moviesRepository.getMovies(
+        minimumRating: 8,
+        page: lastPage++,
+      );
+
+  @action
+  void _setStateUsing(Result<List<Movie>> moviesResult) =>
+      moviesResult.when<void>(
+        error: (errorMessage) => _setState(StateUnion.error(errorMessage)),
+        sucess: (moviesPayload) {
+          movies.addAll(moviesPayload);
+          _setState(StateUnion.loaded());
+        },
+      );
+
+  @action
+  void _setState(StateUnion<List<Movie>> state) => moviesState = state;
 
   @override
   void dispose() {

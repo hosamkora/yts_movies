@@ -11,26 +11,26 @@ mixin _$Result<T> {
   @optionalTypeArgs
   Result when<Result extends Object>({
     @required Result error(String message),
-    @required Result payload(T payload),
+    @required Result sucess(T payload),
   });
 
   @optionalTypeArgs
   Result maybeWhen<Result extends Object>({
     Result error(String message),
-    Result payload(T payload),
+    Result sucess(T payload),
     @required Result orElse(),
   });
 
   @optionalTypeArgs
   Result map<Result extends Object>({
     @required Result error(_Error<T> value),
-    @required Result payload(_Payload<T> value),
+    @required Result sucess(_Sucess<T> value),
   });
 
   @optionalTypeArgs
   Result maybeMap<Result extends Object>({
     Result error(_Error<T> value),
-    Result payload(_Payload<T> value),
+    Result sucess(_Sucess<T> value),
     @required Result orElse(),
   });
 }
@@ -44,8 +44,8 @@ class _$ResultTearOff {
     );
   }
 
-  _Payload<T> payload<T>(T payload) {
-    return _Payload<T>(
+  _Sucess<T> sucess<T>(T payload) {
+    return _Sucess<T>(
       payload,
     );
   }
@@ -89,10 +89,10 @@ class _$_Error<T> implements _Error<T> {
   @optionalTypeArgs
   Result when<Result extends Object>({
     @required Result error(String message),
-    @required Result payload(T payload),
+    @required Result sucess(T payload),
   }) {
     assert(error != null);
-    assert(payload != null);
+    assert(sucess != null);
     return error(message);
   }
 
@@ -100,7 +100,7 @@ class _$_Error<T> implements _Error<T> {
   @optionalTypeArgs
   Result maybeWhen<Result extends Object>({
     Result error(String message),
-    Result payload(T payload),
+    Result sucess(T payload),
     @required Result orElse(),
   }) {
     assert(orElse != null);
@@ -114,10 +114,10 @@ class _$_Error<T> implements _Error<T> {
   @optionalTypeArgs
   Result map<Result extends Object>({
     @required Result error(_Error<T> value),
-    @required Result payload(_Payload<T> value),
+    @required Result sucess(_Sucess<T> value),
   }) {
     assert(error != null);
-    assert(payload != null);
+    assert(sucess != null);
     return error(this);
   }
 
@@ -125,7 +125,7 @@ class _$_Error<T> implements _Error<T> {
   @optionalTypeArgs
   Result maybeMap<Result extends Object>({
     Result error(_Error<T> value),
-    Result payload(_Payload<T> value),
+    Result sucess(_Sucess<T> value),
     @required Result orElse(),
   }) {
     assert(orElse != null);
@@ -144,21 +144,21 @@ abstract class _Error<T> implements Result<T> {
   _Error<T> copyWith({String message});
 }
 
-class _$_Payload<T> implements _Payload<T> {
-  _$_Payload(this.payload) : assert(payload != null);
+class _$_Sucess<T> implements _Sucess<T> {
+  _$_Sucess(this.payload) : assert(payload != null);
 
   @override
   final T payload;
 
   @override
   String toString() {
-    return 'Result<$T>.payload(payload: $payload)';
+    return 'Result<$T>.sucess(payload: $payload)';
   }
 
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
-        (other is _Payload<T> &&
+        (other is _Sucess<T> &&
             (identical(other.payload, payload) ||
                 const DeepCollectionEquality().equals(other.payload, payload)));
   }
@@ -168,10 +168,10 @@ class _$_Payload<T> implements _Payload<T> {
       runtimeType.hashCode ^ const DeepCollectionEquality().hash(payload);
 
   @override
-  _$_Payload<T> copyWith({
+  _$_Sucess<T> copyWith({
     Object payload = freezed,
   }) {
-    return _$_Payload<T>(
+    return _$_Sucess<T>(
       payload == freezed ? this.payload : payload as T,
     );
   }
@@ -180,23 +180,23 @@ class _$_Payload<T> implements _Payload<T> {
   @optionalTypeArgs
   Result when<Result extends Object>({
     @required Result error(String message),
-    @required Result payload(T payload),
+    @required Result sucess(T payload),
   }) {
     assert(error != null);
-    assert(payload != null);
-    return payload(this.payload);
+    assert(sucess != null);
+    return sucess(payload);
   }
 
   @override
   @optionalTypeArgs
   Result maybeWhen<Result extends Object>({
     Result error(String message),
-    Result payload(T payload),
+    Result sucess(T payload),
     @required Result orElse(),
   }) {
     assert(orElse != null);
-    if (payload != null) {
-      return payload(this.payload);
+    if (sucess != null) {
+      return sucess(payload);
     }
     return orElse();
   }
@@ -205,32 +205,32 @@ class _$_Payload<T> implements _Payload<T> {
   @optionalTypeArgs
   Result map<Result extends Object>({
     @required Result error(_Error<T> value),
-    @required Result payload(_Payload<T> value),
+    @required Result sucess(_Sucess<T> value),
   }) {
     assert(error != null);
-    assert(payload != null);
-    return payload(this);
+    assert(sucess != null);
+    return sucess(this);
   }
 
   @override
   @optionalTypeArgs
   Result maybeMap<Result extends Object>({
     Result error(_Error<T> value),
-    Result payload(_Payload<T> value),
+    Result sucess(_Sucess<T> value),
     @required Result orElse(),
   }) {
     assert(orElse != null);
-    if (payload != null) {
-      return payload(this);
+    if (sucess != null) {
+      return sucess(this);
     }
     return orElse();
   }
 }
 
-abstract class _Payload<T> implements Result<T> {
-  factory _Payload(T payload) = _$_Payload<T>;
+abstract class _Sucess<T> implements Result<T> {
+  factory _Sucess(T payload) = _$_Sucess<T>;
 
   T get payload;
 
-  _Payload<T> copyWith({T payload});
+  _Sucess<T> copyWith({T payload});
 }

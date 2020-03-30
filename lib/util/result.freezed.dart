@@ -7,33 +7,7 @@ part of 'result.dart';
 // FreezedGenerator
 // **************************************************************************
 
-mixin _$Result<T> {
-  @optionalTypeArgs
-  Result when<Result extends Object>({
-    @required Result error(String message),
-    @required Result sucess(T payload),
-  });
-
-  @optionalTypeArgs
-  Result maybeWhen<Result extends Object>({
-    Result error(String message),
-    Result sucess(T payload),
-    @required Result orElse(),
-  });
-
-  @optionalTypeArgs
-  Result map<Result extends Object>({
-    @required Result error(_Error<T> value),
-    @required Result sucess(_Sucess<T> value),
-  });
-
-  @optionalTypeArgs
-  Result maybeMap<Result extends Object>({
-    Result error(_Error<T> value),
-    Result sucess(_Sucess<T> value),
-    @required Result orElse(),
-  });
-}
+T _$identity<T>(T value) => value;
 
 class _$ResultTearOff {
   const _$ResultTearOff();
@@ -51,7 +25,70 @@ class _$ResultTearOff {
   }
 }
 
+// ignore: unused_element
 const $Result = _$ResultTearOff();
+
+mixin _$Result<T> {
+  @optionalTypeArgs
+  Result when<Result extends Object>({
+    @required Result error(String message),
+    @required Result sucess(T payload),
+  });
+  @optionalTypeArgs
+  Result maybeWhen<Result extends Object>({
+    Result error(String message),
+    Result sucess(T payload),
+    @required Result orElse(),
+  });
+  @optionalTypeArgs
+  Result map<Result extends Object>({
+    @required Result error(_Error<T> value),
+    @required Result sucess(_Sucess<T> value),
+  });
+  @optionalTypeArgs
+  Result maybeMap<Result extends Object>({
+    Result error(_Error<T> value),
+    Result sucess(_Sucess<T> value),
+    @required Result orElse(),
+  });
+}
+
+abstract class $ResultCopyWith<T, $Res> {
+  factory $ResultCopyWith(Result<T> value, $Res Function(Result<T>) then) =
+      _$ResultCopyWithImpl<T, $Res>;
+}
+
+class _$ResultCopyWithImpl<T, $Res> implements $ResultCopyWith<T, $Res> {
+  _$ResultCopyWithImpl(this._value, this._then);
+
+  final Result<T> _value;
+  // ignore: unused_field
+  final $Res Function(Result<T>) _then;
+}
+
+abstract class _$ErrorCopyWith<T, $Res> {
+  factory _$ErrorCopyWith(_Error<T> value, $Res Function(_Error<T>) then) =
+      __$ErrorCopyWithImpl<T, $Res>;
+  $Res call({String message});
+}
+
+class __$ErrorCopyWithImpl<T, $Res> extends _$ResultCopyWithImpl<T, $Res>
+    implements _$ErrorCopyWith<T, $Res> {
+  __$ErrorCopyWithImpl(_Error<T> _value, $Res Function(_Error<T>) _then)
+      : super(_value, (v) => _then(v as _Error<T>));
+
+  @override
+  _Error<T> get _value => super._value as _Error<T>;
+
+  @override
+  $Res call({
+    Object message = freezed,
+  }) {
+    return _then(_Error<T>(
+      message == freezed ? _value.message : message as String,
+    ));
+  }
+}
 
 class _$_Error<T> implements _Error<T> {
   _$_Error(this.message) : assert(message != null);
@@ -77,13 +114,8 @@ class _$_Error<T> implements _Error<T> {
       runtimeType.hashCode ^ const DeepCollectionEquality().hash(message);
 
   @override
-  _$_Error<T> copyWith({
-    Object message = freezed,
-  }) {
-    return _$_Error<T>(
-      message == freezed ? this.message : message as String,
-    );
-  }
+  _$ErrorCopyWith<T, _Error<T>> get copyWith =>
+      __$ErrorCopyWithImpl<T, _Error<T>>(this, _$identity);
 
   @override
   @optionalTypeArgs
@@ -140,8 +172,31 @@ abstract class _Error<T> implements Result<T> {
   factory _Error(String message) = _$_Error<T>;
 
   String get message;
+  _$ErrorCopyWith<T, _Error<T>> get copyWith;
+}
 
-  _Error<T> copyWith({String message});
+abstract class _$SucessCopyWith<T, $Res> {
+  factory _$SucessCopyWith(_Sucess<T> value, $Res Function(_Sucess<T>) then) =
+      __$SucessCopyWithImpl<T, $Res>;
+  $Res call({T payload});
+}
+
+class __$SucessCopyWithImpl<T, $Res> extends _$ResultCopyWithImpl<T, $Res>
+    implements _$SucessCopyWith<T, $Res> {
+  __$SucessCopyWithImpl(_Sucess<T> _value, $Res Function(_Sucess<T>) _then)
+      : super(_value, (v) => _then(v as _Sucess<T>));
+
+  @override
+  _Sucess<T> get _value => super._value as _Sucess<T>;
+
+  @override
+  $Res call({
+    Object payload = freezed,
+  }) {
+    return _then(_Sucess<T>(
+      payload == freezed ? _value.payload : payload as T,
+    ));
+  }
 }
 
 class _$_Sucess<T> implements _Sucess<T> {
@@ -168,13 +223,8 @@ class _$_Sucess<T> implements _Sucess<T> {
       runtimeType.hashCode ^ const DeepCollectionEquality().hash(payload);
 
   @override
-  _$_Sucess<T> copyWith({
-    Object payload = freezed,
-  }) {
-    return _$_Sucess<T>(
-      payload == freezed ? this.payload : payload as T,
-    );
-  }
+  _$SucessCopyWith<T, _Sucess<T>> get copyWith =>
+      __$SucessCopyWithImpl<T, _Sucess<T>>(this, _$identity);
 
   @override
   @optionalTypeArgs
@@ -231,6 +281,5 @@ abstract class _Sucess<T> implements Result<T> {
   factory _Sucess(T payload) = _$_Sucess<T>;
 
   T get payload;
-
-  _Sucess<T> copyWith({T payload});
+  _$SucessCopyWith<T, _Sucess<T>> get copyWith;
 }

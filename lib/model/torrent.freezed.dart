@@ -7,17 +7,9 @@ part of 'torrent.dart';
 // FreezedGenerator
 // **************************************************************************
 
+T _$identity<T>(T value) => value;
 Torrent _$TorrentFromJson(Map<String, dynamic> json) {
   return _Torrent.fromJson(json);
-}
-
-mixin _$Torrent {
-  Quality get quality;
-  QualityType get type;
-
-  Torrent copyWith({Quality quality, QualityType type});
-
-  Map<String, dynamic> toJson();
 }
 
 class _$TorrentTearOff {
@@ -31,7 +23,68 @@ class _$TorrentTearOff {
   }
 }
 
+// ignore: unused_element
 const $Torrent = _$TorrentTearOff();
+
+mixin _$Torrent {
+  Quality get quality;
+  QualityType get type;
+
+  Map<String, dynamic> toJson();
+  $TorrentCopyWith<Torrent> get copyWith;
+}
+
+abstract class $TorrentCopyWith<$Res> {
+  factory $TorrentCopyWith(Torrent value, $Res Function(Torrent) then) =
+      _$TorrentCopyWithImpl<$Res>;
+  $Res call({Quality quality, QualityType type});
+}
+
+class _$TorrentCopyWithImpl<$Res> implements $TorrentCopyWith<$Res> {
+  _$TorrentCopyWithImpl(this._value, this._then);
+
+  final Torrent _value;
+  // ignore: unused_field
+  final $Res Function(Torrent) _then;
+
+  @override
+  $Res call({
+    Object quality = freezed,
+    Object type = freezed,
+  }) {
+    return _then(_value.copyWith(
+      quality: quality == freezed ? _value.quality : quality as Quality,
+      type: type == freezed ? _value.type : type as QualityType,
+    ));
+  }
+}
+
+abstract class _$TorrentCopyWith<$Res> implements $TorrentCopyWith<$Res> {
+  factory _$TorrentCopyWith(_Torrent value, $Res Function(_Torrent) then) =
+      __$TorrentCopyWithImpl<$Res>;
+  @override
+  $Res call({Quality quality, QualityType type});
+}
+
+class __$TorrentCopyWithImpl<$Res> extends _$TorrentCopyWithImpl<$Res>
+    implements _$TorrentCopyWith<$Res> {
+  __$TorrentCopyWithImpl(_Torrent _value, $Res Function(_Torrent) _then)
+      : super(_value, (v) => _then(v as _Torrent));
+
+  @override
+  _Torrent get _value => super._value as _Torrent;
+
+  @override
+  $Res call({
+    Object quality = freezed,
+    Object type = freezed,
+  }) {
+    return _then(_Torrent(
+      quality == freezed ? _value.quality : quality as Quality,
+      type == freezed ? _value.type : type as QualityType,
+    ));
+  }
+}
 
 @JsonSerializable()
 class _$_Torrent implements _Torrent {
@@ -70,15 +123,8 @@ class _$_Torrent implements _Torrent {
       const DeepCollectionEquality().hash(type);
 
   @override
-  _$_Torrent copyWith({
-    Object quality = freezed,
-    Object type = freezed,
-  }) {
-    return _$_Torrent(
-      quality == freezed ? this.quality : quality as Quality,
-      type == freezed ? this.type : type as QualityType,
-    );
-  }
+  _$TorrentCopyWith<_Torrent> get copyWith =>
+      __$TorrentCopyWithImpl<_Torrent>(this, _$identity);
 
   @override
   Map<String, dynamic> toJson() {
@@ -95,7 +141,6 @@ abstract class _Torrent implements Torrent {
   Quality get quality;
   @override
   QualityType get type;
-
   @override
-  _Torrent copyWith({Quality quality, QualityType type});
+  _$TorrentCopyWith<_Torrent> get copyWith;
 }

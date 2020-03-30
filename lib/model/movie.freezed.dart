@@ -7,29 +7,9 @@ part of 'movie.dart';
 // FreezedGenerator
 // **************************************************************************
 
+T _$identity<T>(T value) => value;
 Movie _$MovieFromJson(Map<String, dynamic> json) {
   return _Movie.fromJson(json);
-}
-
-mixin _$Movie {
-  int get id;
-  String get title;
-  int get year;
-  double get rating;
-  List<Genre> get genres;
-  Uri get mediumCoverImage;
-  List<Torrent> get torrents;
-
-  Movie copyWith(
-      {int id,
-      String title,
-      int year,
-      double rating,
-      List<Genre> genres,
-      Uri mediumCoverImage,
-      List<Torrent> torrents});
-
-  Map<String, dynamic> toJson();
 }
 
 class _$MovieTearOff {
@@ -55,7 +35,113 @@ class _$MovieTearOff {
   }
 }
 
+// ignore: unused_element
 const $Movie = _$MovieTearOff();
+
+mixin _$Movie {
+  int get id;
+  String get title;
+  int get year;
+  double get rating;
+  List<Genre> get genres;
+  Uri get mediumCoverImage;
+  List<Torrent> get torrents;
+
+  Map<String, dynamic> toJson();
+  $MovieCopyWith<Movie> get copyWith;
+}
+
+abstract class $MovieCopyWith<$Res> {
+  factory $MovieCopyWith(Movie value, $Res Function(Movie) then) =
+      _$MovieCopyWithImpl<$Res>;
+  $Res call(
+      {int id,
+      String title,
+      int year,
+      double rating,
+      List<Genre> genres,
+      Uri mediumCoverImage,
+      List<Torrent> torrents});
+}
+
+class _$MovieCopyWithImpl<$Res> implements $MovieCopyWith<$Res> {
+  _$MovieCopyWithImpl(this._value, this._then);
+
+  final Movie _value;
+  // ignore: unused_field
+  final $Res Function(Movie) _then;
+
+  @override
+  $Res call({
+    Object id = freezed,
+    Object title = freezed,
+    Object year = freezed,
+    Object rating = freezed,
+    Object genres = freezed,
+    Object mediumCoverImage = freezed,
+    Object torrents = freezed,
+  }) {
+    return _then(_value.copyWith(
+      id: id == freezed ? _value.id : id as int,
+      title: title == freezed ? _value.title : title as String,
+      year: year == freezed ? _value.year : year as int,
+      rating: rating == freezed ? _value.rating : rating as double,
+      genres: genres == freezed ? _value.genres : genres as List<Genre>,
+      mediumCoverImage: mediumCoverImage == freezed
+          ? _value.mediumCoverImage
+          : mediumCoverImage as Uri,
+      torrents:
+          torrents == freezed ? _value.torrents : torrents as List<Torrent>,
+    ));
+  }
+}
+
+abstract class _$MovieCopyWith<$Res> implements $MovieCopyWith<$Res> {
+  factory _$MovieCopyWith(_Movie value, $Res Function(_Movie) then) =
+      __$MovieCopyWithImpl<$Res>;
+  @override
+  $Res call(
+      {int id,
+      String title,
+      int year,
+      double rating,
+      List<Genre> genres,
+      Uri mediumCoverImage,
+      List<Torrent> torrents});
+}
+
+class __$MovieCopyWithImpl<$Res> extends _$MovieCopyWithImpl<$Res>
+    implements _$MovieCopyWith<$Res> {
+  __$MovieCopyWithImpl(_Movie _value, $Res Function(_Movie) _then)
+      : super(_value, (v) => _then(v as _Movie));
+
+  @override
+  _Movie get _value => super._value as _Movie;
+
+  @override
+  $Res call({
+    Object id = freezed,
+    Object title = freezed,
+    Object year = freezed,
+    Object rating = freezed,
+    Object genres = freezed,
+    Object mediumCoverImage = freezed,
+    Object torrents = freezed,
+  }) {
+    return _then(_Movie(
+      id: id == freezed ? _value.id : id as int,
+      title: title == freezed ? _value.title : title as String,
+      year: year == freezed ? _value.year : year as int,
+      rating: rating == freezed ? _value.rating : rating as double,
+      genres: genres == freezed ? _value.genres : genres as List<Genre>,
+      mediumCoverImage: mediumCoverImage == freezed
+          ? _value.mediumCoverImage
+          : mediumCoverImage as Uri,
+      torrents:
+          torrents == freezed ? _value.torrents : torrents as List<Torrent>,
+    ));
+  }
+}
 
 @JsonSerializable(fieldRename: FieldRename.snake)
 class _$_Movie implements _Movie {
@@ -125,27 +211,8 @@ class _$_Movie implements _Movie {
       const DeepCollectionEquality().hash(torrents);
 
   @override
-  _$_Movie copyWith({
-    Object id = freezed,
-    Object title = freezed,
-    Object year = freezed,
-    Object rating = freezed,
-    Object genres = freezed,
-    Object mediumCoverImage = freezed,
-    Object torrents = freezed,
-  }) {
-    return _$_Movie(
-      id: id == freezed ? this.id : id as int,
-      title: title == freezed ? this.title : title as String,
-      year: year == freezed ? this.year : year as int,
-      rating: rating == freezed ? this.rating : rating as double,
-      genres: genres == freezed ? this.genres : genres as List<Genre>,
-      mediumCoverImage: mediumCoverImage == freezed
-          ? this.mediumCoverImage
-          : mediumCoverImage as Uri,
-      torrents: torrents == freezed ? this.torrents : torrents as List<Torrent>,
-    );
-  }
+  _$MovieCopyWith<_Movie> get copyWith =>
+      __$MovieCopyWithImpl<_Movie>(this, _$identity);
 
   @override
   Map<String, dynamic> toJson() {
@@ -179,14 +246,6 @@ abstract class _Movie implements Movie {
   Uri get mediumCoverImage;
   @override
   List<Torrent> get torrents;
-
   @override
-  _Movie copyWith(
-      {int id,
-      String title,
-      int year,
-      double rating,
-      List<Genre> genres,
-      Uri mediumCoverImage,
-      List<Torrent> torrents});
+  _$MovieCopyWith<_Movie> get copyWith;
 }

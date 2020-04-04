@@ -18,6 +18,8 @@ abstract class _MoviesStoreBase with Store, Reactions {
 
   int lastPage = 1;
 
+  int get moviesCount => movies.length;
+
   @observable
   bool isLoadingMore = false;
 

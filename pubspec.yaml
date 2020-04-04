@@ -18,7 +18,7 @@ dependencies:
   pretty_dio_logger: ^1.1.1
   mobx: ^1.1.1
   flutter_mobx: ^1.1.0
-  device_preview: ^0.3.0+1
+  device_preview: ^0.4.3
   flutter_screenutil: ^1.1.0
   smooth_star_rating: ^1.0.4+2
   freezed_annotation: ^0.7.1

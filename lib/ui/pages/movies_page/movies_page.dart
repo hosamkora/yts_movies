@@ -60,18 +60,12 @@ class _MoviesPageState extends State<MoviesPage> {
           },
         ),
         floatingActionButton: ValueListenableBuilder<bool>(
-          valueListenable: isTop,
-          builder: (_, value, child) => AnimatedOpacity(
-            opacity: value ? 0 : 1,
+          valueListenable: this.isTop,
+          builder: (_, isTop, child) => AnimatedOpacity(
+            opacity: isTop ? 0 : 1,
             duration: Duration(milliseconds: 100),
             child: FloatingActionButton(
-              onPressed: () {
-                controller.animateTo(
-                  0,
-                  duration: Duration(milliseconds: 500),
-                  curve: Curves.bounceInOut,
-                );
-              },
+              onPressed: scrollToTop,
               child: Icon(Icons.vertical_align_top),
             ),
           ),
@@ -81,43 +75,53 @@ class _MoviesPageState extends State<MoviesPage> {
     );
   }
 
+  void scrollToTop() {
+    controller.animateTo(
+      0,
+      duration: Duration(milliseconds: 500),
+      curve: Curves.bounceInOut,
+    );
+  }
+
   Widget error(String errorMessage) => Center(child: Text(errorMessage));
   Widget loading() => Center(child: CircularProgressIndicator());
   Widget loaded() => NotificationListener<ScrollNotification>(
-        onNotification: (notification) {
-          if (notification.isBottomEdge) model.loadMoreMovies();
-          isTop.value = notification.isTopEdge;
-          return true;
-        },
+        onNotification: handleNotification,
         child: Column(
           children: <Widget>[
             Expanded(
-              child: ListView(
-                controller: controller,
-                children: [
-                  ...model.movies
-                      .map(
-                        (movie) => InkWell(
-                          key: Key("${movie.id} ${movie.year}"),
-                          onTap: () {},
-                          child: MovieListElement(movie),
-                        ),
-                      )
-                      .toList(),
-                  Observer(
-                      builder: (_) => model.isLoadingMore
-                          ? Center(child: CircularProgressIndicator())
-                          : SizedBox.shrink())
-                ],
-              ),
+              child: ListView.builder(
+                  controller: controller,
+                  itemCount: model.moviesCount,
+                  itemBuilder: (_, index) {
+                    final movie = model.movies[index];
+
+                    return InkWell(
+                      key: Key("${movie.id} ${movie.year}"),
+                      onTap: () {},
+                      child: MovieListElement(model.movies[index]),
+                    );
+                  }),
             ),
+            Observer(
+                builder: (_) => model.isLoadingMore
+                    ? Center(child: CircularProgressIndicator())
+                    : SizedBox.shrink())
           ],
         ),
       );
 
+  bool handleNotification(ScrollNotification notification) {
+    if (notification.isBottomEdge) model.loadMoreMovies();
+    if (isTop.value != notification.isTopEdge)
+      isTop.value = notification.isTopEdge;
+    return true;
+  }
+
   @override
   void dispose() {
     controller.dispose();
+    model.dispose();
     super.dispose();
   }
 }
